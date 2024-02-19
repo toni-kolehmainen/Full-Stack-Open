@@ -1,0 +1,63 @@
+Sign in
+
+Sign up
+
+With out Login auto
+
+main screen
+
+recommentations top 5 rating
+
+add own restaurant
+
+suomen alue
+
+extras
+
+language fi/eng
+valuutta euros dollar pound
+
+extra notifies marks drive in, 
+
+use location to show on map and recommentations 
+
+
+
+
+needed libaries
+
+leaflet
+redux
+firebase
+
+Frontend (react)
+
+Login
+signup
+
+nav bar (link to site, valuutta, kieli, register, signup)
+
+settings
+home (katso trivagoa)
+
+search screen
+
+Navi
+login, signup
+home,
+
+
+
+Backend (node/express)
+
+Login, get token
+signup, create accout
+settings delete account 
+
+
+Database ( PostgreSQL/sequalize)
+
+user
+
+Käytä
+const:ia tai let:iä
