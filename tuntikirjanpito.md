@@ -2,6 +2,6 @@
 
 | päivä | aika | mitä tein  |
 | :----:|:-----| :-----|
-| 15.2. | 1    | projekti templatin luominen ja aiheen valinta |
-| 19.2. | 1    | kotisivun luonti ja navigoinnin alustus |
+| 23.6. | 1    | aiheen valinta/tutustuminen, projekti templatin luominen ja tarvittavien kirjastojen lisäys  |
+| 24.6 | 0    | kotisivun luonti ja navigoinnin alustus |
 | yht   | 1   | | 
