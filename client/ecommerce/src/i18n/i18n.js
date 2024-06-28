@@ -2,14 +2,21 @@ import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import httpBackend from "i18next-http-backend";
 import LanguageDetector from "i18next-browser-languagedetector";
+import Finnish from "./fi/translation.json";
+import English from "./en/translation.json";
+import Swedish from "./sv/translation.json";
 
 // 26.6
-
-
-i18n.use(initReactI18next).init({
+/**
+ * 
+ */
+i18n
+// .use(httpBackend)
+// .use(LanguageDetector)
+.use(initReactI18next).init({
   lng: "en",
-  fallbackLng: "en",
-  supportedLngs: ["en", "fi"],
+  fallbackLng: ["en", "fi","sv"],
+  supportedLngs: ["en", "fi","sv"],
   debug: true,
   interpolation: {
     escapeValue: false,
@@ -17,22 +24,15 @@ i18n.use(initReactI18next).init({
   load: 'currentOnly',
   resources: {
     en:{
-      translation:{
-        login:"Login",
-        lastviewed:"Last viewed",
-        favorities:"Favorities",
-        menu:"Menu"
-      }
-  },
+      translation:English,
+    },
     fi:{
-      translation:{
-      login:"Kirjaudu sisään",
-      lastviewed:"Viimeksi katsottu",
-      favorities:"Suosikit",
-      menu:"Valikko"
-    }
+      translation:Finnish,
+    },
+    sv:{
+      translation:Swedish,
+    },
   },
-},
 });
 
 export default i18n;

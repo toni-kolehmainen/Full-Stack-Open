@@ -1,23 +1,29 @@
-import logo from './logo.svg';
+// import logo from './logo.svg';
 import './App.css';
+import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import {initTheme} from './services/globalHandler';
+import SiteRouter from './navigation/SiteRouter';
 
 function App() {
+  const [language, setLanguage] = useState(null)
+  const { i18n, t } = useTranslation();
+  
+  useEffect(() => {
+    initTheme()
+    if (window.localStorage.getItem("language") === null) {
+      setLanguage("en")
+      window.localStorage.setItem("language", "en")
+    } else {
+      i18n.changeLanguage(window.localStorage.getItem("language"))
+      setLanguage(window.localStorage.getItem("language"))
+
+    }
+  }, [])
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <SiteRouter i18n={i18n}/>
     </div>
   );
 }
