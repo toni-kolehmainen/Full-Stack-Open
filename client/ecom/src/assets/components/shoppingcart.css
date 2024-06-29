@@ -1,0 +1,7 @@
+div#slider-container{
+    height:calc(100vh - calc(0.375rem * 2 + 1rem + 24px + 60px )) !important;
+    flex-wrap: wrap;
+    position: fixed;
+    top: calc(0.375rem * 2 + 1rem + 24px + 60px );
+    right: 0px;
+}
