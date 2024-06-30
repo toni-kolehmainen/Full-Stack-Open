@@ -10,12 +10,6 @@ const config = require('./utils/config')
 
 // Render or heroku
 // atlas
-// toni
-// 83Uq0f5f8Ejbj80U
-
-// restaurant
-// toni
-// FeYGRrqU1OVMXdDJ
 
 app.listen(config.PORT, () => {
   console.log(`Server running on port ${config.PORT}`)

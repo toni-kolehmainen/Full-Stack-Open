@@ -8,6 +8,7 @@ import './products.css'
 import ShoppingCart from '@/components/global/ShoppingCart'
 import ProductCart from '@/components/global/productcart'
 import { useViewport } from '@/hooks'
+import { useGetProductGroupsQuery } from '../../services/api'
 // swich oma componentti
 // Kauppa Tyyppi oma componentti
 //
@@ -19,6 +20,24 @@ import { useViewport } from '@/hooks'
 
 function Products() {
   const viewport = useViewport()
+  // const [
+  //   getProductGroups, 
+  //   { isLoading: isUpdating }, 
+  // ] = useGetProductGroupsQuery()
+  const {
+    data: posts,
+    isLoading,
+    isSuccess,
+    isError,
+    error
+  } = useGetProductGroupsQuery()
+  // const {
+  //   data: posts,
+  //   isLoading,
+  //   isSuccess,
+  //   isError,
+  //   error
+  // } = useGetPostsQuery()
   return (
     <>
       <div className="tuotteet-palkki" style={{ 'backgroundColor': 'rgba(20, 35, 200, 0.95)' }}>
@@ -42,7 +61,7 @@ function Products() {
               </div>
             </div>
             <div className=" col-4 col-lg-2  order-1 order-lg-3">
-              <Button>
+              <Button >
                 Tuoteryhmät
               </Button>
             </div>

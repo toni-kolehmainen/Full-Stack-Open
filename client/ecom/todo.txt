@@ -1,0 +1,37 @@
+29.6
+shopping cart, if smaller show in modal
+nav aktiivinen sivu
+
+kaupat tallentaa ja haku
+vaihto --> modal
+
+product alempi bar eritellä componenteiksi ja toiminto
+päivitä kielet
+
+30.7
+redux
+
+login ja register communication ja loput
+tuoteryhmät tallentaa ja haku
+product alempi bar eritellä componenteiksi ja toiminto
+
+päivitä kielet
+
+1.7
+tauko
+2.7
+
+3.7
+
+5.7
+
+nav offcanvas mobile
+navigation bar
+-logo
+-kaupat
+-tuotteet
+-reseptit
+-
+-kirjautuminen
+-ostokori
+-kieli

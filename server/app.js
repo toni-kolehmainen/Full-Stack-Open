@@ -6,6 +6,7 @@ const cors = require('cors')
 const middleware = require('./utils/middleware')
 const logger = require('./utils/logger')
 const router = require('./router/router')
+const setup = require('./external/setup')
 const mongoose = require('mongoose')
 
 console.log(config.MONGODB_URI)
@@ -14,14 +15,15 @@ console.log(config.MONGODB_URI)
 // git commit/push
 // mongoose connect
 // craw.serviceTest()
-mongoose.connect(config.MONGODB_URI)
-  .then(() => {
-    logger.info('connected to MongoDB')
-  })
-  .catch((error) => {
-    logger.error('error connection to MongoDB:', error.message)
-  })
-
+// mongoose.connect(config.MONGODB_URI)
+//   .then(() => {
+//     logger.info('connected to MongoDB')
+//   })
+//   .catch((error) => {
+//     logger.error('error connection to MongoDB:', error.message)
+//   })
+// setup.productGroups()
+// setup.stores()
 app.use(express.urlencoded({ extended: true }));
 
 app.use(express.json());
