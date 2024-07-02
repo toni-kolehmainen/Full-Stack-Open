@@ -12,7 +12,7 @@ function LanguageDropdown({ i18n }) {
   }
 
   return(
-    <Form.Select style={{}}  value={i18n.language} aria-label="Select language" onChange={handleChangeLanguage}>
+    <Form.Select  style={{}}  value={i18n.language} aria-label="Select language" onChange={handleChangeLanguage}>
       {locale.map(language =>
         <option value={language.value} key={language.id}>{language.value.toLocaleUpperCase()}</option>
       )}

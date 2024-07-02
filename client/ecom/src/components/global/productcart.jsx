@@ -8,13 +8,8 @@ function ProductCart() {
         <div className="col-12" tyle={{ 'flex': '1' }}>
         test
         </div>
-        {/* <div style={{ 'flex': '1' }}>
-          test
-        </div> */}
-
       </div>
     </>
   )
 }
-
 export default ProductCart

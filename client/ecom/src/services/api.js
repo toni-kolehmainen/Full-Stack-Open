@@ -8,7 +8,7 @@ export const nodeApi = createApi({
   tagTypes: ['Groups'],
   endpoints: (builder) => ({
     getProductGroups: builder.query({
-      query: () => '/gettest',
+      query: () => '/getgroups',
     }),
   // endpoints: (builder) => ({
   //   getProductGroups: builder.query({

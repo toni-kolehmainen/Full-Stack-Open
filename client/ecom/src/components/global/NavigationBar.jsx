@@ -15,7 +15,7 @@ import { Button } from 'react-bootstrap'
 /**
  * Component for site navigation bar.
  */
-// vaihtaa brand kuva, login, teema?
+// login, teema?
 
 function NavigationBar({ i18n }) {
 
@@ -53,8 +53,11 @@ function NavigationBar({ i18n }) {
   window.addEventListener('resize', handleWindowResize)
 
   const sizeIcon = { 'height':'24', 'width':'24', 'marginRight':2, 'verticalAlign':'middle' }
-  const styleNav = { 'display':'inline-flex', 'alignItems':'center', 'whiteSpace': 'nowrap' }
+  const styleNav = { 'display':'inline-flex', 'alignItems':'center', 'whiteSpace': 'nowrap', 'borderTopColor':'#32BF6F' , 'borderTopWidth':'3px'}
   const styleNavItem = { 'display':'inline-flex', 'alignItems':'center', 'whiteSpace': 'nowrap' }
+  const borderActiveHome = {borderTopStyle: loc.pathname === '/' ? 'solid' : 'none'}
+  const borderActiveStores = {borderTopStyle: loc.pathname === '/kaupat' ? 'solid' : 'none'}
+  const borderActiveProducts = {borderTopStyle: loc.pathname === '/tuotteet' ? 'solid' : 'none'}
   return (
     <>
       <Navbar className='border-bottom fixed-top' bg={document.documentElement.getAttribute('data-bs-theme')} data-bs-theme={document.documentElement.getAttribute('data-bs-theme')}>
@@ -62,14 +65,14 @@ function NavigationBar({ i18n }) {
           <Nav className="justify-content-md-start">
             {collapseNavbar ? <Nav.Link style={styleNav} onClick={canvas.openOffcanvas} className=""><IoMenuSharp style={sizeIcon}/></Nav.Link> :  null}
             <Navbar.Brand href="/" className="brand-text m-auto"
-              style={{ 'color':'#32BF6F','borderTopColor':'#32BF6F', 'borderTopWidth':'3px', 'borderTopStyle':'solid' }}>
+              style={{  'color':'#32BF6F','borderTopColor':'#32BF6F', 'borderTopWidth':'3px', ...borderActiveHome}}>
               E-Shop
             </Navbar.Brand>
           </Nav>
           {collapseNavbar ? null :
             <Nav>
-              <Nav.Link href='/kaupat' style={styleNav}>{t('stores')}</Nav.Link>
-              <Nav.Link href='/tuotteet' style={styleNav}>{t('products')}</Nav.Link>
+              <Nav.Link href='/kaupat' style={{...styleNav, ...borderActiveStores}}>{t('stores')}</Nav.Link>
+              <Nav.Link href='/tuotteet' style={{...styleNav, ...borderActiveProducts}}>{t('products')}</Nav.Link>
             </Nav>
           }
           <Nav className="justify-content-md-end">
@@ -79,7 +82,7 @@ function NavigationBar({ i18n }) {
             {/* <Nav.Item style={styleNavItem} className='px-2' onClick={handleThemeChange}><Button className='p-0' variant={checkTheme()}>{(checkTheme()) ? <MdOutlineLightMode style={sizeIcon} /> : <MdOutlineDarkMode style={sizeIcon} />}</Button></Nav.Item>   */}
             {/* <Nav.Item style={styleNavItem} className='px-2'><Button className='p-0' variant={checkTheme()}><SlBasket style={sizeIcon}/></Button></Nav.Item> */}
             <Nav.Link style={styleNav} className='px-2' onClick={handleThemeChange}>{(checkTheme()) ? <MdOutlineLightMode style={sizeIcon} /> : <MdOutlineDarkMode style={sizeIcon} />}</Nav.Link>
-            <Nav.Link style={styleNav} className='px-2'><SlBasket style={sizeIcon}/></Nav.Link>
+            <Nav.Link style={styleNav} className='px-2'><Button className='product-cart rounded-5' style={{"backgroundColor":"#32BF6F","borderStyle":"none"}} ><SlBasket style={sizeIcon}/></Button></Nav.Link>
           </Nav>
         </Container>
       </Navbar>

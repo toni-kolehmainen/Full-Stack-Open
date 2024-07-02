@@ -9,6 +9,8 @@ import ShoppingCart from '@/components/global/ShoppingCart'
 import ProductCart from '@/components/global/productcart'
 import { useViewport } from '@/hooks'
 import { useGetProductGroupsQuery } from '../../services/api'
+import { useState } from 'react'
+import Groups from './components/Groups'
 // swich oma componentti
 // Kauppa Tyyppi oma componentti
 //
@@ -20,12 +22,13 @@ import { useGetProductGroupsQuery } from '../../services/api'
 
 function Products() {
   const viewport = useViewport()
+  const [view, setView] = useState("home")
   // const [
   //   getProductGroups, 
   //   { isLoading: isUpdating }, 
   // ] = useGetProductGroupsQuery()
   const {
-    data: posts,
+    data: path,
     isLoading,
     isSuccess,
     isError,
@@ -38,6 +41,12 @@ function Products() {
   //   isError,
   //   error
   // } = useGetPostsQuery()
+  const productGroups = () => {
+    console.log("productGroups")
+    console.log(path[0].navigation)
+    setView("groups")
+
+  }
   return (
     <>
       <div className="tuotteet-palkki" style={{ 'backgroundColor': 'rgba(20, 35, 200, 0.95)' }}>
@@ -61,7 +70,7 @@ function Products() {
               </div>
             </div>
             <div className=" col-4 col-lg-2  order-1 order-lg-3">
-              <Button >
+              <Button onClick={() => productGroups()}>
                 Tuoteryhmät
               </Button>
             </div>
@@ -84,9 +93,10 @@ function Products() {
         </div>
       </div>
       <div className="main-content" style={{ 'display': 'block', 'backgroundColor': 'transparent' }}>
-        <div className="container-fluid p-0 m-0" style={{ 'display': 'flex', 'flexDirection': 'row', 'position': 'relative', 'maxWidth': '100vh','minWidth':'0' }}>
-          <ProductCart />
-          {viewport.width > 992 ? <ShoppingCart /> : null}
+        <div className="container-fluid p-0 m-0 h-100" style={{ 'display': 'flex', 'flexDirection': 'row', 'position': 'sticky' }}>
+          {view === "home" ? <ProductCart /> : null}
+          {view === "groups" ? <Groups groups={path[0].navigation} /> : null}
+          {(viewport.width > 992 && ['home'].includes(view)) ? <ShoppingCart /> : null}
         </div>
       </div>
     </>

@@ -8,6 +8,7 @@
 .main-content{
     position: relative;
     top: calc(0.375rem * 2 + 1rem + 24px + 60px );
+    height:calc(100vh - calc(0.375rem * 2 + 1rem + 24px + 60px )) !important;
 }
 .tuotteet-palkki button{
     background-color: #00000000 !important;

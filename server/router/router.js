@@ -1,6 +1,5 @@
-const dataController = require('../controllers/restaurant_controller')
+const dataController = require('../controllers/store_controller')
 const router = require('express').Router()
-// const Note = require('../models/note')
 
 router.get('/gettest', dataController.getTest);
 
@@ -12,18 +11,12 @@ router.get('/gettest', dataController.getTest);
 // })
 router.post('/createmongo', dataController.createMongo);
 
-router.get('/getmongo', dataController.getMongo);
+router.get('/getgroups', dataController.getGroups);
 
 // router.get('/getmongo', (request, response) => {
 //   response.json(notes)
 // })
 
-router.get('/', dataController.getdefault);
-
-
-
-// router.get('/', (request, response) => {
-//   response.send('<h1>Hello World!</h1>')
-// })
+// router.get('/', dataController.getdefault);
 
 module.exports = router

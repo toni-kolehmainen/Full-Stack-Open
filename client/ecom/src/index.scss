@@ -1,0 +1,16 @@
+$body-color-dark: #212529 !default;
+$body-bg-dark: #282828 !default;
+$body-color-light: #282828 !default;
+$body-bg-light: #f8f9fa !default;
+
+[data-bs-theme="dark"] {
+    Select {
+        background-color: $body-color-dark !important;
+    }
+
+}
+[data-bs-theme="light"] {
+    Select {
+        background-color: $body-bg-light !important;
+    }
+}
