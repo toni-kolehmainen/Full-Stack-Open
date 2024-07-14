@@ -7,10 +7,18 @@ $body-bg-light: #f8f9fa !default;
     Select {
         background-color: $body-color-dark !important;
     }
-
+    background-color: $body-bg-dark 
 }
 [data-bs-theme="light"] {
+    background-color: $body-bg-light;
     Select {
         background-color: $body-bg-light !important;
     }
+    :root{
+        background-color: $body-bg-light;
+    }
+    // .button-variant{
+    //     background-color: $body-bg-light;
+    //     color: $body-bg-light;
+    // }
 }

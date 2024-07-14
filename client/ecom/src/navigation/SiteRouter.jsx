@@ -6,18 +6,21 @@ import SignIn from '../pages/signin/SignIn'
 import { Suspense } from 'react'
 import SignUp from '../pages/SignUp'
 import Stores from '../pages/Stores'
+import ShoppingCart from '../components/global/ShoppingCart'
+import { useViewport } from '../hooks'
 
 /**
  * Component for site navigation.
  */
 function SiteRouter({ i18n }) {
-
+  const viewport = useViewport()
   return (
     <div>
       <Router>
         {/* <Suspense fallback={<div>Loading...</div>}> */}
         <>
           <NavigationBar i18n={i18n}/>
+          {/* <ShoppingCart /> */}
           {/* basket component that open/close */}
         </>
         <Routes>

@@ -7,7 +7,7 @@
 | 29.6. | 3    | Vaihto viteen, bugin korjaus, custom hook ja product näkymän parantelua ja suunnittelua |
 | 30.6. | 2    | Redux kirjaston lisäys ja serverin toimivuuden testaus. Myös tuoteryhmien haku ja kauppojen haku. |
 | 2.7.  | 4    | navbar tyylien muokkaus ja aktiivinen näkymän lisäys. Lisäksi tuoteryhmät näkyviin. Lisätty myös databaseen. |
-| 3.7.  | 0    |  |
-| 3.7.  | 0    |  |
+| 5.7.  | 2    | Ostoskorin avaus ja näkymän vaihtuvuus käyttäjän näytön koon mukaan. |
+| 13.7.  | 7    | tuotteiden lisäyksiä ja tuotteiden saaminen näkyviin. Lisäksi parannuksia teemaan. |
 | 3.7.  | 0    |  |
 | yht   | 12   | | 

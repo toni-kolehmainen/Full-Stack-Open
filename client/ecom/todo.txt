@@ -1,6 +1,5 @@
 29.6
 shopping cart, if smaller show in modal
-nav aktiivinen sivu
 
 kaupat tallentaa ja haku
 vaihto --> modal

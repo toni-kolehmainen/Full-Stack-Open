@@ -5,5 +5,22 @@
     "menu":"Valikko",
 
     "products":"Tuotteet",
-    "stores":"Kaupat"
+    "stores":"Kaupat",
+
+    "email":"Sähköposti",
+    "password":"Salasana",
+    "confirm":"Vahvista Salasana",
+    "continue":"Jatka",
+    "cancel":"Peruuta",
+    "signup":"Luo tunnus",
+    "registerTitle":"Luo tunnus",
+    "registerSubTitle":"Aloita syöttämällä sähköpostiosoite.",
+    "registerFooter":"Onko sinulla jo E-käyttäjä tunnus?",
+    "registerFooterLink":"Kirjaudu",
+
+    "signin":"Login",
+    "loginTitle":"Kirjaudu E-tilille",
+    "loginSubTitle":"Aloita syöttämällä sähköpostiosoite.",
+    "loginFooter":"Eikö sinulla ole E-tiliä?",
+    "loginFooterLink":"Luo käyttäjätili"
 }

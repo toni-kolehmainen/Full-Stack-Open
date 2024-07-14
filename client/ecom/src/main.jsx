@@ -9,12 +9,15 @@ import 'leaflet/dist/leaflet.js'
 import './i18n/i18n'
 import { Provider } from 'react-redux'
 import store from './redux/store/store.js'
+import { ThemeProvider } from './redux/context/ThemeContext.jsx'
 
 // @reduxjs/toolkit and rtk
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <ThemeProvider>
+        <App />
+      </ThemeProvider>
     </Provider>
   </React.StrictMode>
 )

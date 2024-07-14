@@ -3,15 +3,17 @@ import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { initTheme } from './services/globalHandler'
 import SiteRouter from './navigation/SiteRouter'
+import useTheme from './hooks/useTheme'
 
 function App() {
   const [language, setLanguage] = useState(null)
   const { i18n, t } = useTranslation()
-
+  const theme = useTheme()
+  // console.log("theme", theme)
   useEffect(() => {
-    initTheme()
+    initTheme(theme ? 'dark' : 'light')
   }, [])
-
+  
   useEffect(() => {
     if (window.localStorage.getItem('language') === null) {
       setLanguage('en')

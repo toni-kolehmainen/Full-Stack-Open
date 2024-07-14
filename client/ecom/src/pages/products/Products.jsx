@@ -3,30 +3,94 @@
 // tuoteryhmä
 // ostokori näkymä
 import { Button, Form } from 'react-bootstrap'
-import { GoArrowSwitch } from '@/assets/icons/icons'
+import { GoArrowSwitch, IoAdd, IoRemove } from '@/assets/icons/icons'
 import './products.css'
 import ShoppingCart from '@/components/global/ShoppingCart'
 import ProductCart from '@/components/global/productcart'
 import { useViewport } from '@/hooks'
-import { useGetProductGroupsQuery } from '../../services/api'
-import { useState } from 'react'
+import { useGetProductGroupsQuery, useGetProductsMutation } from '../../services/api'
+import { useContext, useEffect, useState } from 'react'
 import Groups from './components/Groups'
-// swich oma componentti
-// Kauppa Tyyppi oma componentti
-//
-// Tuoteryhmät oma componentti
-// https://cfapi.voikukka.fi/graphql?operationName=RemoteNavigation&variables=%7B%22id%22%3A%22603116906%22%7D&extensions=%7B%22persistedQuery%22%3A%7B%22version%22%3A1%2C%22sha256Hash%22%3A%22707a9c68de67bcde9992a5d135e696c61d48abe1a9c765ca73ecf07bd80c513f%22%7D%7D
-// search oma componentti
+import ProductCard from './components/ProductCard'
+import {getTheme } from '../../services/globalHandler'
+import { ThemeContext } from '../../redux/context/ThemeContext'
 
-// eritellä toiminnot
+// swich oma componentti
+
+// uudet tuotteet
+// osta uudelleen / usein ostetut
+// carousel
+
+function ProductsField() {
+  // const theme = getTheme()
+  const {themeDark } = useContext(ThemeContext);
+  
+  const [products, setProducts] = useState([])
+
+  const [
+    getProducts, // This is the mutation trigger
+    { isLoading: isUpdating }, // This is the destructured mutation result
+  ] = useGetProductsMutation()
+
+  useEffect(() => {
+    async function fetchData() {
+      const response = await getProducts();
+      setProducts(response.data)
+    }
+    fetchData();
+  }, [])
+
+  const urlToImage = (url) => {
+    return url.replace("{EXTENSION}", "jpg").replace("{MODIFIERS}", "w256_h256_q75")
+  }
+  // console.log("theme", theme)
+  return (
+    <>
+      <div className="row w-100" style={{ 'zIndex': '1', 'display': 'flex', 'flexDirection': 'column', 'textAlign': 'start' }}>
+        <div className='wrapper' style={{ "display": "grid" }}>
+          {!isUpdating ? products.map(item => (
+            <div className='card rounded-2 shadow-5-strong p-4 border border-1' key={item.ean} style={{ "display": "grid", "height": "100%", "width": "100%", "position": "relative" }}>
+              <div className='image' style={{ "placeSelf": "center" }}>
+                <img src={urlToImage(item.imageUrl)} 
+                style={{ "maxHeight": "130px", "maxWidth": "130px", "width": "130px", "height": "130px", "objectFit": "contain", "aspectRatio": "1/1", "mixBlendMode":"multiply"}} />
+              </div>
+              <div className='name'>
+                {item.name}
+              </div>
+              <div className='text-grid' style={{ "display": "grid" }}>
+                <div className='price'>
+                  {item.price.$numberDecimal}
+                </div>
+                <div className='unit'>
+                  {item.unit}
+                </div>
+              </div>
+              <div className='comparison'>
+                {item.comparisonPrice.$numberDecimal} {item.comparisonUnit}
+              </div>
+              <div className='buttons' style={{ "display": "flex", "justifyContent":"space-between" }}>
+                <div style={{"alignSelf":"center"}}>
+                  <Button variant={themeDark ? 'light' : 'dark'} className='button-variant'><IoRemove/></Button>
+                </div>
+                <div style={{"alignSelf":"center"}}>
+                  0 kpl
+                </div>
+                <div style={{"alignSelf":"center"}}>
+                  <Button variant={themeDark ? 'light' : 'dark'} className='button-variant'><IoAdd/></Button>
+                </div>
+              </div>
+            </div>
+          )) : <div>loading</div>}
+        </div>
+      </div>
+    </>
+  )
+}
 
 function Products() {
-  const viewport = useViewport()
+  // const viewport = useViewport()
   const [view, setView] = useState("home")
-  // const [
-  //   getProductGroups, 
-  //   { isLoading: isUpdating }, 
-  // ] = useGetProductGroupsQuery()
+
   const {
     data: path,
     isLoading,
@@ -34,13 +98,7 @@ function Products() {
     isError,
     error
   } = useGetProductGroupsQuery()
-  // const {
-  //   data: posts,
-  //   isLoading,
-  //   isSuccess,
-  //   isError,
-  //   error
-  // } = useGetPostsQuery()
+
   const productGroups = () => {
     console.log("productGroups")
     console.log(path[0].navigation)
@@ -94,9 +152,10 @@ function Products() {
       </div>
       <div className="main-content" style={{ 'display': 'block', 'backgroundColor': 'transparent' }}>
         <div className="container-fluid p-0 m-0 h-100" style={{ 'display': 'flex', 'flexDirection': 'row', 'position': 'sticky' }}>
-          {view === "home" ? <ProductCart /> : null}
+          {/* {view === "home" ? <ProductCart /> : null} */}
+          {view === "home" ? <ProductsField /> : null}
           {view === "groups" ? <Groups groups={path[0].navigation} /> : null}
-          {(viewport.width > 992 && ['home'].includes(view)) ? <ShoppingCart /> : null}
+          {/* {(viewport.width > 992 && ['home'].includes(view)) ? <ShoppingCart /> : null} */}
         </div>
       </div>
     </>

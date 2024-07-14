@@ -5,5 +5,22 @@
     "menu":"Valikko",
 
     "products":"Produkter",
-    "stores":"Butiker"
+    "stores":"Butiker",
+
+    "email":"E-post",
+    "password":"Lösenord",
+    "confirm":"Säkra Lösenord",
+    "continue":"Fortsätt",
+    "cancel":"Avbryt",
+    "signup":"Registrera",
+    "registerTitle":"Skapa en användare",
+    "registerSubTitle":"Börja med att skriva din e-post.",
+    "registerFooter":"Har du redan en användare?",
+    "registerFooterLink":"Logga in",
+
+    "signin":"Logga in",
+    "loginTitle":"Logga in på E-Shop",
+    "loginSubTitle":"Börja med att skriva din e-post.",
+    "loginFooter":"Har du inget E-konto?",
+    "loginFooterLink":"Skapa ett användarkonto"
 }

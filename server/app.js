@@ -5,11 +5,11 @@ const cors = require('cors')
 const middleware = require('./utils/middleware')
 const logger = require('./utils/logger')
 const router = require('./router/router')
-// const setup = require('./external/setup')
+const setup = require('./external/setup')
 const mongoose = require('mongoose')
 
 console.log(config.MONGODB_URI)
-
+// setup.sale()
 
 mongoose.connect(config.MONGODB_URI)
   .then(() => {

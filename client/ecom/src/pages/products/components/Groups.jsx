@@ -48,10 +48,8 @@ function Groups({ groups }) {
         </li>)
         )}
       </ul>
-      <div className="group"
-        style={{ "display": "flex", "overflowY": "auto", "flexGrow": "1", "padding": "8" }}>
-        <div
-          style={{ "display": "flex", "flex": "1", "alignItems": "flex-start", "position": "relative" }}>
+      <div className="group" style={{ "display": "flex", "overflowY": "auto", "flexGrow": "1", "padding": "8" }}>
+        <div style={{ "display": "flex", "flex": "1", "alignItems": "flex-start", "position": "relative" }}>
           <div
             style={{ "display": "block", "columns": "250px", "width": "100%" }}>
             {path !== null ?

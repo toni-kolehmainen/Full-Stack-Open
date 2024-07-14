@@ -5,5 +5,22 @@
     "menu":"Menu",
 
     "products":"Products",
-    "stores":"Stores"
+    "stores":"Stores",
+
+    "email":"Email",
+    "password":"Password",
+    "confirm":"Confirm Password",
+    "continue":"Continue",
+    "cancel":"Cancel",
+    "signup":"Register",
+    "registerTitle":"Create account",
+    "registerSubTitle":"Start by typing your email.",
+    "registerFooter":"Do you have allready E-account?",
+    "registerFooterLink":"Login",
+
+    "signin":"Login",
+    "loginTitle":"Login in to your E-account",
+    "loginSubTitle":"Start by typing your email.",
+    "loginFooter":"Don't have E-account yet?",
+    "loginFooterLink":"Create E-account"
 }

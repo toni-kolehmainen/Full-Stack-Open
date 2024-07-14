@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { Form } from 'react-bootstrap'
 import '../../assets/components/Dropdown.css'
+import { ThemeContext } from '../../redux/context/ThemeContext';
 
 function LanguageDropdown({ i18n }) {
-
+  // const {theme} = useContext(ThemeContext);
   const [locale, setLocale] = useState([{ value:'en', id:1, text:'English' }, { value:'fi', id:2,text:'Suomi' }, { value:'sv', id:3, text:'Svenska' }])
 
   const handleChangeLanguage = (event) => {

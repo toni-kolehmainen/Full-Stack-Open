@@ -1,7 +1,7 @@
-export const initTheme = () => {
+export const initTheme = (theme) => {
   if (window.localStorage.getItem('theme')) {
-    document.documentElement.setAttribute('data-bs-theme', window.localStorage.getItem('theme'))
-    document.documentElement.setAttribute('data-theme', window.localStorage.getItem('theme'))
+    document.documentElement.setAttribute('data-bs-theme', theme)
+    document.documentElement.setAttribute('data-theme', theme)
   }
 }
 
@@ -11,4 +11,8 @@ export const checkTheme = () => {
   } else {
     return true
   }
+}
+
+export const getTheme = () => {
+  return document.documentElement.getAttribute('data-bs-theme')
 }
