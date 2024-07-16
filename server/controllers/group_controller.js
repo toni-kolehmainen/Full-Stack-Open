@@ -11,8 +11,8 @@ const getTest = (request, response , next) => {
   const Sec = dataControllerSec
   Sec.find({})
     .then(docs => {
-      console.log("test")
-      console.log(docs)
+      // console.log("test")
+      // console.log(docs)
       response.status(200).end()
     })
     .catch(err => console.error(err));
@@ -25,7 +25,7 @@ const createMongo = (request, response, next) => {
     name:"test",
   })
   groups.save().then(result => {
-    console.log('restaurant saved!')
+    // console.log('restaurant saved!')
     // mongoose.connection.close()
     response.status(200).end()
   })
@@ -38,7 +38,7 @@ const getGroups = (request, response, next) => {
   mongoose.connection.readyState
   Groups.find({}).then(result => {
     result.forEach(group => {
-      console.log(group)
+      // console.log(group)
       data.push(group)
     })
     response.status(200).send(data)

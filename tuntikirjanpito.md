@@ -9,5 +9,5 @@
 | 2.7.  | 4    | navbar tyylien muokkaus ja aktiivinen näkymän lisäys. Lisäksi tuoteryhmät näkyviin. Lisätty myös databaseen. |
 | 5.7.  | 2    | Ostoskorin avaus ja näkymän vaihtuvuus käyttäjän näytön koon mukaan. |
 | 13.7.  | 7    | tuotteiden lisäyksiä ja tuotteiden saaminen näkyviin. Lisäksi parannuksia teemaan. |
-| 3.7.  | 0    |  |
-| yht   | 12   | | 
+| 16.7.  | 8    | Kauppojen haku serveriltä. Lisäksi filteri ja haku toteutu niin serveriin kuin clientiin. Modaliin kauppa layout ja infinitescroll. |
+| yht   | 33   | | 

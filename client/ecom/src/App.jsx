@@ -5,11 +5,22 @@ import { initTheme } from './services/globalHandler'
 import SiteRouter from './navigation/SiteRouter'
 import useTheme from './hooks/useTheme'
 
+// const compose = (providers) =>
+//   providers.reduce((Prev, Curr) => ({ children }) => (
+//       <Prev>
+//           <Curr>{children}</Curr>
+//       </Prev>
+//   ));
+//   const ProviderCompose = compose([
+
+//     ThemeProvider,
+
+// ]);
 function App() {
   const [language, setLanguage] = useState(null)
   const { i18n, t } = useTranslation()
   const theme = useTheme()
-  // console.log("theme", theme)
+  
   useEffect(() => {
     initTheme(theme ? 'dark' : 'light')
   }, [])
@@ -21,7 +32,6 @@ function App() {
     } else {
       i18n.changeLanguage(window.localStorage.getItem('language'))
       setLanguage(window.localStorage.getItem('language'))
-
     }
   }, [i18n])
 

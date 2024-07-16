@@ -1,6 +1,6 @@
-import { useState } from "react"
+import { useContext, useState } from "react"
 import { Button } from "react-bootstrap"
-// import '../products.css'
+import { ThemeContext } from "../../../redux/context/ThemeContext";
 
 function Children({ obj }) {
   if (!('children' in obj)) {
@@ -17,31 +17,31 @@ function Children({ obj }) {
 }
 
 function Groups({ groups }) {
+  const { themeDark } = useContext(ThemeContext);
   const [path, setPath] = useState(null)
   const [hoverOff, setHoverOff] = useState(false)
 
   const groupClicked = (index) => {
-    console.log(index)
-    console.log(groups[index].children)
     setHoverOff(true)
     setPath(index)
   }
   const groupHover = (index) => {
-    console.log(index)
-    console.log(groups[index].children)
     if (!hoverOff) {
       setPath(index)
     }
   }
+  const variant = themeDark ? "light" : "dark"
   return (
     <>
-      <ul className="p-0" style={{ "minWidth": "30vh", "display": "inline-block", "listStyleType": "none", "backgroundColor": "white", "height": "100%", "verticalAlign": "top", "overflowY": "scroll", "overflowX": "hidden" }}>
+      <ul className={`p-0 bg-${variant}`}
+      style={{ "minWidth": "30vh", "display": "inline-block", "listStyleType": "none", "backgroundColor": "white",
+      "height": "100%", "verticalAlign": "top", "overflowY": "scroll", "overflowX": "hidden"}}>
         {groups.map((group, index) =>
         (<li className="" style={{ "textAlign": "center" }} key={group.id}>
           <Button
             onClick={() => groupClicked(index)}
             onMouseEnter={() => groupHover(index)}
-            variant="light"
+            variant={variant}
             style={{"display": "block", "width": "100%", "borderLeftStyle":(index === path && hoverOff) ? "solid":"none", "borderLeftColor":"#32BF6F", "borderLeftWidth":"4px"}}>
             {group.name}
           </Button>

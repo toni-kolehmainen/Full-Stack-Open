@@ -1,12 +1,17 @@
-import { Button, Modal } from 'react-bootstrap'
+import { Button, Dropdown, Modal } from 'react-bootstrap'
 import '../../assets/components/shoppingcart.css'
-import { SlArrowLeft } from '../../assets/icons/icons'
+import { IoEllipsisHorizontal } from '../../assets/icons/icons'
 import { useEffect, useState } from 'react'
 import { useViewport } from '../../hooks';
+import basket from '../../assets/basket.png'
+import { motion } from "framer-motion";
+
+const variants = {
+  open: { opacity: 1, x: 0 },
+  closed: { opacity: 0, x: "100%" },
+}
 
 function ShoppingModal(props) {
-
-  // console.log(props.show)
   return (
     <>
       <Modal show={props.show} onHide={props.close}>
@@ -26,7 +31,6 @@ function ShoppingModal(props) {
     </>
   )
 }
-
 function ShoppingCart(props) {
   const viewport = useViewport()
 
@@ -36,17 +40,48 @@ function ShoppingCart(props) {
     )
   }
   return (
-    <>
-      <div id="slider-container" className="container w-25"
-        style={{ 'alignSelf': 'end', 'visibility': (props.show) ? 'visible' : 'hidden', 'backgroundColor': 'white', 'display': 'inline-flex', 'flexDirection': 'column', 'overflow': 'auto', 'zIndex': '2' }}>
-        <div className='col  d-flex justify-content-start align-items-start' >
-
+    <motion.div
+      animate={props.show ? "open" : "closed"}
+      variants={variants}
+      id="slider-container" className="container w-25 bg-dark shadow-lg"
+      style={{ 'alignSelf': 'end', 'backgroundColor': 'white', 'display': 'inline-flex', 'flexDirection': 'column', 'overflow': 'auto', 'zIndex': '2' }}
+    >
+      <div className='cart-title row mt-2 align-items-center'>
+        <div className='cart-title col-auto' style={{ "textAlign": "start", "fontSize": 20 }}>
+          Ostokorisi on tyhjä
         </div>
-        <div style={{ 'flex': '1', 'overflow': 'auto' }}>
-          test
+        <div className='cart-title-icon col' style={{ "textAlign": "end", "fontSize": 24 }}>
+          <Dropdown >
+            {/* <Button className='btn dropdown' variant="" id="dropdown-basic">
+            <IoEllipsisHorizontal />
+            </Button> */}
+            <Dropdown.Toggle variant="" id="dropdown-basic">
+              <IoEllipsisHorizontal />
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              <Dropdown.Item key="test">
+                test
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
         </div>
       </div>
-    </>
+      <div className='row align-items-center' style={{ 'flex': '1', 'overflow': 'auto' }} >
+        <div className='col'>
+          <div className='row'>
+            <div className='col'>
+              <img src={basket} style={{ "height": "20vh", "width": "20vh", "objectFit": "contain" }} />
+            </div>
+          </div>
+          <div className='row'>
+            <div className='col'>
+              Lisää ensimmäinen tuote ostokoriin
+            </div>
+          </div>
+        </div>
+      </div>
+      <Button className='mb-2'>Siirry eteenpäin</Button>
+    </motion.div>
   )
 }
 

@@ -1,5 +1,6 @@
 $body-color-dark: #212529 !default;
 $body-bg-dark: #282828 !default;
+$body-bg-scroll-dark: #28282800 !default;
 $body-color-light: #282828 !default;
 $body-bg-light: #f8f9fa !default;
 
@@ -7,18 +8,33 @@ $body-bg-light: #f8f9fa !default;
     Select {
         background-color: $body-color-dark !important;
     }
-    background-color: $body-bg-dark 
+
+    background-color: $body-bg-dark ;
+
 }
+
 [data-bs-theme="light"] {
     background-color: $body-bg-light;
+
+    // body::-webkit-scrollbar-thumb {
+    //     background-color: gray !important;
+    //     border-radius: 10px;
+    // }
+
+    // body::-webkit-scrollbar-thumb:hover {
+    //     background-color: rgb(126, 126, 126);
+    //     border-radius: 10px;
+    // }
+
     Select {
         background-color: $body-bg-light !important;
     }
-    :root{
+
+    :root {
         background-color: $body-bg-light;
     }
-    // .button-variant{
-    //     background-color: $body-bg-light;
-    //     color: $body-bg-light;
-    // }
+
+    div {
+        scrollbar-color: #495057 #bada5500;
+    }
 }

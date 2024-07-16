@@ -95,7 +95,7 @@ function NavigationBar({ i18n }) {
           </Nav>
         </Offcanvas.Body>
       </Offcanvas>
-      <ShoppingCart close={cart.closeOffcanvas} show={cart.showOffcanvas} />
+      {/* <ShoppingCart close={cart.closeOffcanvas} show={cart.showOffcanvas} /> */}
     </>
   )
 }

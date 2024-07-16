@@ -27,7 +27,7 @@ const getProductTest = (req, res, next) => {
 }
 
 const getProductById = (req, res, next) => {
-
+  // req.params.id
   let data = []
   const Product = dataController
   mongoose.connection

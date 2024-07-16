@@ -16,6 +16,15 @@ export const nodeApi = createApi({
     getProductGroups: builder.query({
       query: () => '/getgroups',
     }),
+    getStoreById: builder.mutation({
+      query(body) {
+        return {
+          url: `getstorebyid`,
+          method: 'POST',
+          body,
+        }
+      },
+    }),
     signIn: builder.mutation({
       query(body) {
         return {
@@ -37,10 +46,20 @@ export const nodeApi = createApi({
       invalidatesTags: [{ type: 'Groups', id: 'LIST' }],
     }),
     getProducts: builder.mutation({
-      query(body) {
+      query() {
         return {
           url: `getproductstest`,
           method: 'GET',
+        }
+      },
+      invalidatesTags: [{ type: 'Groups', id: 'LIST' }],
+    }),
+    getStores: builder.mutation({
+      query(body) {
+        return {
+          url: `getstores`,
+          method: 'POST',
+          body,
         }
       },
       invalidatesTags: [{ type: 'Groups', id: 'LIST' }],
@@ -51,5 +70,5 @@ export const nodeApi = createApi({
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
 export const {
-  useGetProductGroupsQuery, useSignInMutation, useSignUpMutation, useGetProductsMutation
+  useGetProductGroupsQuery, useSignInMutation, useSignUpMutation, useGetProductsMutation, useGetStoresMutation, useGetStoreByIdMutation
 } = nodeApi
