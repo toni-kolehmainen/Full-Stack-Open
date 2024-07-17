@@ -10,4 +10,6 @@
 | 5.7.  | 2    | Ostoskorin avaus ja näkymän vaihtuvuus käyttäjän näytön koon mukaan. |
 | 13.7.  | 7    | tuotteiden lisäyksiä ja tuotteiden saaminen näkyviin. Lisäksi parannuksia teemaan. |
 | 16.7.  | 8    | Kauppojen haku serveriltä. Lisäksi filteri ja haku toteutu niin serveriin kuin clientiin. Modaliin kauppa layout ja infinitescroll. |
+| 17.7.  | 2    | Kauppojen dataan lisätty 24h aukioloaika ja kordinaatit. Tuotteiteiden valinta toteutettu createSlice:n avulla. |
+
 | yht   | 33   | | 

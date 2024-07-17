@@ -26,6 +26,7 @@ function SiteRouter({ i18n }) {
         <Routes>
           <Route path="/" element={<HomeSite />}/>
           <Route path="/tuotteet" element={<Products/>}/>
+          {/* <Route path="/tuotteet/:" element={<BySlug/>}/> */}
           <Route path="/kaupat" element={<Stores/>}/>
           <Route path="/signin" element={<SignIn i18n={i18n}/>}/>
           <Route path="/signup" element={<SignUp i18n={i18n}/>}/>

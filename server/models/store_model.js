@@ -1,69 +1,85 @@
-const { Double } = require('mongodb')
 const mongoose = require('mongoose')
 
 const storeDatesSchema = new mongoose.Schema({
-  date:{
+  date: {
     type: String,
     required: false
   },
-  open:{
+  mode:{
     type: String,
     required: false,
   },
-  close:{
-    type: String,
-    required: false,
-  }, 
-  exceptional:{
+  open: {
     type: String,
     required: false,
   },
-  message:{
+  close: {
+    type: String,
+    required: false,
+  },
+  exceptional: {
+    type: String,
+    required: false,
+  },
+  message: {
     type: String,
     required: false,
   }
 })
 const storeOpenningHoursSchema = new mongoose.Schema({
-  week:{
+  week: {
     type: Number,
     required: false,
   },
-  dates:[storeDatesSchema]
+  dates: [storeDatesSchema]
 })
-const storeLocationSchema = new mongoose.Schema({
-  address:{
-    type: String,
-    required: true,
+
+const coordinateSchema = new mongoose.Schema({
+  latitude: {
+    type: mongoose.Schema.Types.Decimal128,
+    required: false,
   },
-  postcode:{
-    type: String,
-    required: true,
-  },
-  postcodeName:{
-    type: String,
-    required: true,
+  longitude: {
+    type: mongoose.Schema.Types.Decimal128,
+    required: false,
   }
 })
 
+const storeLocationSchema = new mongoose.Schema({
+  address: {
+    type: String,
+    required: true,
+  },
+  postcode: {
+    type: String,
+    required: true,
+  },
+  postcodeName: {
+    type: String,
+    required: true,
+  },
+  coordinates:coordinateSchema,
+})
+
 const storePrismaSchema = new mongoose.Schema({
-  id:{
+  id: {
     type: String,
     required: true,
   },
-  slug:{
+  slug: {
     type: String,
     required: true,
   },
-  name:{
+  name: {
     type: String,
     required: true,
   },
-  brand:{
+  brand: {
     type: String,
     required: true,
   },
-  location:[storeLocationSchema],
-  weeklyOpeningHours:[storeOpenningHoursSchema]
+  location: storeLocationSchema, // changed single nested
+  weeklyOpeningHours: [storeOpenningHoursSchema]
 })
 
 storePrismaSchema.set('toJSON', {

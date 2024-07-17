@@ -8,13 +8,15 @@ import './products.css'
 import ShoppingCart from '@/components/global/ShoppingCart'
 import ProductCart from '@/components/global/productcart'
 import { useViewport } from '@/hooks'
-import { useGetProductGroupsQuery, useGetProductsMutation, useGetStoreByIdMutation } from '../../services/api'
+import { useGetProductGroupsQuery, useGetProductsBySlugMutation, useGetProductsMutation, useGetStoreByIdMutation } from '../../services/api'
 import { useContext, useEffect, useState } from 'react'
 import Groups from './components/Groups'
 import ProductCard from './components/ProductCard'
 import { ThemeContext } from '../../redux/context/ThemeContext'
 import StoreModal from './components/StoreModal'
 import { StoreContext } from '../../redux/context/StoreContext'
+import { useDispatch, useSelector } from 'react-redux'
+import { addItem, addQuantity, deleteItem, minusQuantity } from '../../redux/reducer/cartReducer'
 
 // swich oma componentti
 
@@ -23,13 +25,19 @@ import { StoreContext } from '../../redux/context/StoreContext'
 // carousel
 
 function ProductsField() {
+  const dispatch = useDispatch()
   const { themeDark } = useContext(ThemeContext);
   const [products, setProducts] = useState([])
 
   const [
-    getProducts, // This is the mutation trigger
-    { isLoading: isUpdating }, // This is the destructured mutation result
+    getProducts,
+    { isLoading: isUpdating }, 
   ] = useGetProductsMutation()
+  // const [
+  //   getProducts, 
+  //   { isLoading: isUpdating }, 
+  // ] = useGetProductsBySlugMutation()
+
 
   useEffect(() => {
     async function fetchData() {
@@ -43,17 +51,41 @@ function ProductsField() {
     return url.replace("{EXTENSION}", "jpg").replace("{MODIFIERS}", "w256_h256_q75")
   }
 
+  const handleMinusItem = (value)=>{
+    const inCart = cartItems.cart.find(n => n.ean === value)
+    if (inCart.amount > 1) {
+      dispatch(minusQuantity(value))
+    } else {
+      const index = cartItems.cart.findIndex(n => n.ean === value)
+      dispatch(deleteItem(index))
+    }
+  }
+
+  const handleAddItem = (value)=>{
+    const inCart = cartItems.cart.find(n => n.ean === value)
+    if (inCart) {
+      dispatch(addQuantity(value))
+    } else {
+      dispatch(addItem(value))
+    }
+  }
+
+  const cartItems = useSelector(({ items }) => { 
+    return items
+  })
+
   return (
     <>
-      <div className="row w-100" style={{ 'zIndex': '1', 'display': 'flex', 'flexDirection': 'column', 'textAlign': 'start' }}>
+      <div className="row w-100 " style={{ 'zIndex': '1', 'display': 'flex', 'flexDirection': 'column', 'textAlign': 'start' }}>
         <div className='wrapper' style={{ "display": "grid" }}>
           {(!isUpdating & products.length !== 0) ? products.map(item => (
-            <div className='card rounded-2 shadow-5-strong p-4 border border-1' key={item.ean} style={{ "display": "grid", "height": "100%", "width": "100%", "position": "relative" }}>
-              <div className='image' style={{ "placeSelf": "center" }}>
+            <div className='card rounded-2 shadow-5-strong p-4 border border-1' key={item.ean} 
+            style={{ "display": "grid", "height": "100%", "width": "100%", "position": "relative", minWidth:"180px", placeSelf:"center"}}>
+              <div className='image' style={{ "placeSelf": "center"}}>
                 <img src={urlToImage(item.imageUrl)}
                   style={{ "maxHeight": "130px", "maxWidth": "130px", "width": "130px", "height": "130px", "objectFit": "contain", "aspectRatio": "1/1", "mixBlendMode": "multiply" }} />
               </div>
-              <div className='name'>
+              <div className='name' style={{"whiteSpace":"break-word"}}>
                 {item.name}
               </div>
               <div className='text-grid' style={{ "display": "grid" }}>
@@ -69,13 +101,14 @@ function ProductsField() {
               </div>
               <div className='buttons' style={{ "display": "flex", "justifyContent": "space-between" }}>
                 <div style={{ "alignSelf": "center" }}>
-                  <Button variant={themeDark ? 'light' : 'dark'} className='button-variant'><IoRemove /></Button>
+                  <Button onClick={() => handleMinusItem(item.ean)} variant={themeDark ? 'light' : 'dark'} className='button-variant'><IoRemove /></Button>
                 </div>
                 <div style={{ "alignSelf": "center" }}>
-                  0 kpl
+                  {cartItems.cart.find(n => n.ean === item.ean) ? cartItems.cart.find(n => n.ean === item.ean).amount : '0'}
+                  kpl
                 </div>
                 <div style={{ "alignSelf": "center" }}>
-                  <Button variant={themeDark ? 'light' : 'dark'} className='button-variant'><IoAdd /></Button>
+                  <Button  onClick={() => handleAddItem(item.ean)}variant={themeDark ? 'light' : 'dark'} className='button-variant'><IoAdd /></Button>
                 </div>
               </div>
             </div>
@@ -132,10 +165,10 @@ function Products() {
               <div className="row align-items-center justify-content-center" style={{ 'maxHeight': '60px' }}>
                 <div className="col-auto">
                   {(!isUpdating & store !== undefined) ? <div>
-                    <h4 style={{ 'color': '#DEE2E6' }}>
+                    <h5 style={{ 'color': '#DEE2E6', fontSize:"1.2rem" }}>
                       {store.name}<br />
-                    </h4>
-                    <span style={{ 'color': '#DEE2E6' }}>{store.location[0].postcodeName}</span>
+                    </h5>
+                    <span style={{ 'color': '#DEE2E6' }}>{store.location.postcodeName}</span>
                   </div>
                     : <div>loading</div>}</div>
                 <div className="col-2">

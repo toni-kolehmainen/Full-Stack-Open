@@ -52,9 +52,6 @@ function ShoppingCart(props) {
         </div>
         <div className='cart-title-icon col' style={{ "textAlign": "end", "fontSize": 24 }}>
           <Dropdown >
-            {/* <Button className='btn dropdown' variant="" id="dropdown-basic">
-            <IoEllipsisHorizontal />
-            </Button> */}
             <Dropdown.Toggle variant="" id="dropdown-basic">
               <IoEllipsisHorizontal />
             </Dropdown.Toggle>

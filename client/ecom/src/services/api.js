@@ -64,11 +64,20 @@ export const nodeApi = createApi({
       },
       invalidatesTags: [{ type: 'Groups', id: 'LIST' }],
     }),
+    getProductsBySlug: builder.mutation({
+      query() {
+        return {
+          url: `tuotteet/:`,
+          method: 'GET',
+        }
+      },
+      invalidatesTags: [{ type: 'Groups', id: 'LIST' }],
+    }),
   }),
 })
 
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
 export const {
-  useGetProductGroupsQuery, useSignInMutation, useSignUpMutation, useGetProductsMutation, useGetStoresMutation, useGetStoreByIdMutation
+  useGetProductGroupsQuery, useSignInMutation, useSignUpMutation, useGetProductsMutation, useGetStoresMutation, useGetStoreByIdMutation, useGetProductsBySlugMutation
 } = nodeApi

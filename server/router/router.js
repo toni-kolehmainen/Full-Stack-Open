@@ -13,8 +13,11 @@ router.post('/createmongo', dataController.createMongo);
 router.get('/getgroups', dataController.getGroups);
 router.post('/getbybrand', storeController.getStoreByBrand);
 router.get('/addstores', storeController.addStores);
+router.get('/updatecoordinates', storeController.add_coordinates);
 router.post('/getstores', storeController.getStores);
 router.post('/getstorebyid', storeController.getStoresById);
+
+router.post('/helper', storeController.helper);
 
 router.get('/getproductstest', productController.getProductTest);
 router.get('/addproducts', productController.addProducts);

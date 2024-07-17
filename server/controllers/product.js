@@ -41,11 +41,12 @@ const getProductById = (req, res, next) => {
 }
 const getProductBySlug = (req, res, next) => {
 
+  
   let data = []
   const Product = dataController
   mongoose.connection
   mongoose.connection.readyState
-  Product.find({ brand: req.body.brand }).sort({ 'id': -1 }).skip(req.body.limit).limit(req.body.skip).then(result => {
+  Product.find({ slug: req.body.slug }).sort({ 'id': -1 }).skip(req.body.limit).limit(req.body.skip).then(result => {
     result.forEach(group => {
       data.push(group)
     })

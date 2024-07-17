@@ -99,10 +99,11 @@ function Scroll(props) {
                 <div className="col-9">
                   <div className="row row-cols-auto">
                     <div className="col">
-                      {store.weeklyOpeningHours[0].dates ? store.weeklyOpeningHours[0].dates[0].open + "-" + store.weeklyOpeningHours[0].dates[0].close : null}
+                      {(store.weeklyOpeningHours[0].dates && store.weeklyOpeningHours[0].dates[0].mode === 'RANGE')  ? store.weeklyOpeningHours[0].dates[0].open + "-" + store.weeklyOpeningHours[0].dates[0].close : null}
+                      {(store.weeklyOpeningHours[0].dates && store.weeklyOpeningHours[0].dates[0].mode === 'ALL_DAY')  ? '24h' : null}
                     </div>
                     <div className="col">
-                      {store.location[0].postcodeName}
+                      {store.location.postcodeName}
                     </div>
                     <div className="col">
                       <a className="link-primary" href={store.slug}>Tarkista aukioloajat</a>
