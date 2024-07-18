@@ -31,17 +31,16 @@ const createMongo = (request, response, next) => {
   })
 }
 
-const getGroups = (request, response, next) => {
+const getGroups =  (request, response) => {
   const Groups = dataController
   let data = []
   mongoose.connection
   mongoose.connection.readyState
-  Groups.find({}).then(result => {
-    result.forEach(group => {
-      // console.log(group)
-      data.push(group)
-    })
-    response.status(200).send(data)
+  Groups.findById("6683f61c922d503b5dad2104").then(result => {
+    response.status(200).send(result)
+    // result.forEach(group => {
+    //   data.push(group)
+    // })
   })
 }
 

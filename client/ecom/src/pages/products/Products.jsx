@@ -17,6 +17,8 @@ import StoreModal from './components/StoreModal'
 import { StoreContext } from '../../redux/context/StoreContext'
 import { useDispatch, useSelector } from 'react-redux'
 import { addItem, addQuantity, deleteItem, minusQuantity } from '../../redux/reducer/cartReducer'
+import Searchbar from './components/Searchbar'
+import { Outlet } from 'react-router-dom'
 
 // swich oma componentti
 
@@ -24,20 +26,15 @@ import { addItem, addQuantity, deleteItem, minusQuantity } from '../../redux/red
 // osta uudelleen / usein ostetut
 // carousel
 
-function ProductsField() {
+export function ProductsField() {
   const dispatch = useDispatch()
   const { themeDark } = useContext(ThemeContext);
   const [products, setProducts] = useState([])
 
   const [
     getProducts,
-    { isLoading: isUpdating }, 
+    { isLoading: isUpdating },
   ] = useGetProductsMutation()
-  // const [
-  //   getProducts, 
-  //   { isLoading: isUpdating }, 
-  // ] = useGetProductsBySlugMutation()
-
 
   useEffect(() => {
     async function fetchData() {
@@ -51,7 +48,7 @@ function ProductsField() {
     return url.replace("{EXTENSION}", "jpg").replace("{MODIFIERS}", "w256_h256_q75")
   }
 
-  const handleMinusItem = (value)=>{
+  const handleMinusItem = (value) => {
     const inCart = cartItems.cart.find(n => n.ean === value)
     if (inCart.amount > 1) {
       dispatch(minusQuantity(value))
@@ -61,7 +58,7 @@ function ProductsField() {
     }
   }
 
-  const handleAddItem = (value)=>{
+  const handleAddItem = (value) => {
     const inCart = cartItems.cart.find(n => n.ean === value)
     if (inCart) {
       dispatch(addQuantity(value))
@@ -70,7 +67,7 @@ function ProductsField() {
     }
   }
 
-  const cartItems = useSelector(({ items }) => { 
+  const cartItems = useSelector(({ items }) => {
     return items
   })
 
@@ -79,13 +76,13 @@ function ProductsField() {
       <div className="row w-100 " style={{ 'zIndex': '1', 'display': 'flex', 'flexDirection': 'column', 'textAlign': 'start' }}>
         <div className='wrapper' style={{ "display": "grid" }}>
           {(!isUpdating & products.length !== 0) ? products.map(item => (
-            <div className='card rounded-2 shadow-5-strong p-4 border border-1' key={item.ean} 
-            style={{ "display": "grid", "height": "100%", "width": "100%", "position": "relative", minWidth:"180px", placeSelf:"center"}}>
-              <div className='image' style={{ "placeSelf": "center"}}>
+            <div className='card rounded-2 shadow-5-strong p-4 border border-1' key={item.ean}
+              style={{ "display": "grid", "height": "100%", "width": "100%", "position": "relative", minWidth: "180px", placeSelf: "center" }}>
+              <div className='image' style={{ "placeSelf": "center" }}>
                 <img src={urlToImage(item.imageUrl)}
                   style={{ "maxHeight": "130px", "maxWidth": "130px", "width": "130px", "height": "130px", "objectFit": "contain", "aspectRatio": "1/1", "mixBlendMode": "multiply" }} />
               </div>
-              <div className='name' style={{"whiteSpace":"break-word"}}>
+              <div className='name' style={{ "whiteSpace": "break-word" }}>
                 {item.name}
               </div>
               <div className='text-grid' style={{ "display": "grid" }}>
@@ -108,7 +105,7 @@ function ProductsField() {
                   kpl
                 </div>
                 <div style={{ "alignSelf": "center" }}>
-                  <Button  onClick={() => handleAddItem(item.ean)}variant={themeDark ? 'light' : 'dark'} className='button-variant'><IoAdd /></Button>
+                  <Button onClick={() => handleAddItem(item.ean)} variant={themeDark ? 'light' : 'dark'} className='button-variant'><IoAdd /></Button>
                 </div>
               </div>
             </div>
@@ -118,38 +115,23 @@ function ProductsField() {
     </>
   )
 }
+// const sale ="#C8102E"
+// const prisma ="#007841"
 
 function Products() {
-  const {storeId} = useContext(StoreContext);
-  // const prisma ="#007841"
+  const { storeId } = useContext(StoreContext);
   const smarket = "#0B3B6A"
-  // const sale ="#C8102E"
-
-  const [view, setView] = useState("home")
   const [store, setStore] = useState()
-  const {
-    data: path,
-    isLoading,
-    isSuccess,
-    isError,
-    error
-  } = useGetProductGroupsQuery()
+  // const [themeBgColor, setThemeBgColor] = useState("")
 
   const [
     getStoresById, // This is the mutation trigger
     { isLoading: isUpdating }, // This is the destructured mutation result
   ] = useGetStoreByIdMutation()
 
-  const productGroups = () => {
-    setView("groups")
-  }
-  const handleToHome = () => {
-    setView("home")
-  }
-
   useEffect(() => {
     async function fetchData() {
-      const userStore = await getStoresById({ id:storeId })
+      const userStore = await getStoresById({ id: storeId })
       setStore(userStore.data.data)
     }
     fetchData();
@@ -157,7 +139,6 @@ function Products() {
 
   return (
     <>
-      {/* <div className="tuotteet-palkki" style={{ 'backgroundColor': 'rgba(20, 35, 200, 0.95)' }}> */}
       <div className="tuotteet-palkki" style={{ 'backgroundColor': smarket }}>
         <div className="container-fluid">
           <div className="row align-items-center justify-content-center row-cols-1 row-cols-lg-5">
@@ -165,7 +146,7 @@ function Products() {
               <div className="row align-items-center justify-content-center" style={{ 'maxHeight': '60px' }}>
                 <div className="col-auto">
                   {(!isUpdating & store !== undefined) ? <div>
-                    <h5 style={{ 'color': '#DEE2E6', fontSize:"1.2rem" }}>
+                    <h5 style={{ 'color': '#DEE2E6', fontSize: "1.2rem" }}>
                       {store.name}<br />
                     </h5>
                     <span style={{ 'color': '#DEE2E6' }}>{store.location.postcodeName}</span>
@@ -177,22 +158,16 @@ function Products() {
               </div>
             </div>
             <div className=" col-3 col-lg-2  order-1 order-lg-3">
-              <Button onClick={() => productGroups()}>
+              {/* yhteinen componentti */}
+              <Button href="/tuotteet/tuoteryhmat" variant='transparent'>
                 Tuotteet
               </Button>
             </div>
             <div className="col-12 col-lg-4 order-5 order-lg-3 pb-2 pb-lg-0">
-              <Form className="d-flex">
-                <Form.Control
-                  onClick={() => handleToHome()}
-                  type="search"
-                  placeholder="Search"
-                  className="me-2"
-                  aria-label="Search"
-                />
-              </Form>
+              <Searchbar />
             </div>
             <div className=" col-3 col-lg-2 order-3">
+              {/* yhteinen componentti */}
               <Button>
                 Kaupan tiedot
               </Button>
@@ -202,9 +177,8 @@ function Products() {
       </div>
       <div className="main-content" style={{ 'display': 'block', 'backgroundColor': 'transparent' }}>
         <div className="container-fluid p-0 m-0 h-100" style={{ 'display': 'flex', 'flexDirection': 'row', 'position': 'sticky', "justifyContent": "center" }}>
-          {view === "home" ? <ProductsField /> : null}
-          {view === "groups" ? <Groups groups={path[0].navigation} /> : null}
-          {view === "info" ? <></> : null}
+          <Outlet />
+          {/* {view === "info" ? <></> : null} */}
         </div>
       </div>
     </>
