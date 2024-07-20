@@ -10,11 +10,12 @@ import LanguageDropdown from './LanguageDropdown'
 import LoginButton from './LoginButton'
 import { IoIosHeartEmpty, IoMenuSharp, MdOutlineLightMode, MdOutlineDarkMode, SlBasket, SlArrowLeft } from '../../assets/icons/icons'
 import { useCanvas } from '../../hooks'
-import { Button } from 'react-bootstrap'
+import { Badge, Button } from 'react-bootstrap'
 import ShoppingCart from './ShoppingCart'
 import useToggle from '../../hooks/useToggle'
 import { ThemeContext } from '../../redux/context/ThemeContext'
 import { Link } from "react-router-dom"
+import { useSelector } from 'react-redux'
 /**
  * Component for site navigation bar.
  */
@@ -49,6 +50,7 @@ function NavigationBar({ i18n }) {
   if (noNav.includes(loc.pathname)) {
     return null
   }
+  const total = useSelector(state => state.items.cart.total);
 
   window.addEventListener('resize', handleWindowResize)
 
@@ -81,8 +83,9 @@ function NavigationBar({ i18n }) {
             <LoginButton collapseNavbar={collapseNavbar} />
             <Nav.Link style={styleNav} className='px-2' onClick={handleThemeChange}>{(themeDark) ? <MdOutlineLightMode style={sizeIcon} /> : <MdOutlineDarkMode style={sizeIcon} />}</Nav.Link>
             <Nav.Link style={styleNav} className='px-2'><Button className='product-cart rounded-5'
-              style={{ "backgroundColor": "#32BF6F", "borderStyle": "none" }}
-              onClick={cart.openOffcanvas}><SlBasket style={sizeIcon} /></Button></Nav.Link>
+              style={{ "backgroundColor": "#32BF6F", "borderStyle": "none", "position":"relative" }}
+              onClick={cart.openOffcanvas}><SlBasket style={sizeIcon} /><Badge pill bg='light' text="dark" 
+              style={{"position":"absolute", "top":"0px", "right":"0px", "marginRight":"-40%", "marginTop":"-5%"}}>{total}</Badge></Button></Nav.Link>
           </Nav>
         </Container>
       </Navbar>

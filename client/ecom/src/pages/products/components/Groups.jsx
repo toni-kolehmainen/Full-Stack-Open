@@ -84,8 +84,8 @@ function Groups() {
   } = useGetProductGroupsQuery()
 
   // console.log(path)
-  const variant = themeDark ? "light" : "dark"
-  const linkColor = !themeDark ? "light" : "dark"
+  const variant = themeDark ? "dark" : "light"
+  const linkColor = themeDark ? "light" : "dark"
   return (
     <>
       <ul className={`p-0 bg-${variant}`}

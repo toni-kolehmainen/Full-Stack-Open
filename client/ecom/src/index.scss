@@ -9,10 +9,17 @@ $body-bg-light: #f8f9fa !default;
         background-color: $body-color-dark !important;
     }
     background-color: $body-bg-dark ;
+    .carousel-control-next-icon{
+        color: palevioletred !important;
+    }
 }
 
 [data-bs-theme="light"] {
     background-color: $body-bg-light;
+    .carousel-control-next-icon, .carousel-control-prev-icon{
+        color: #212529;
+        filter: invert(1) grayscale(100);
+    }
     Select {
         background-color: $body-bg-light !important;
     }

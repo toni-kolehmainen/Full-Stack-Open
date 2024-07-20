@@ -15,7 +15,7 @@ import { BrowserRouter as Router, } from "react-router-dom"
 
 // @reduxjs/toolkit and rtk
 ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <Router>
       <Provider store={store}>
         <ThemeProvider>
@@ -25,5 +25,5 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         </ThemeProvider>
       </Provider>
     </Router>
-  </React.StrictMode>
+  // </React.StrictMode>
 )

@@ -6,8 +6,18 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 export const fetchUserCart = createAsyncThunk(
   'cart/fetchUserCart',
   async (userId, thunkAPI) => {
+    console.log("userid",userId)
     const response = await fetch(`http://localhost:3001/usercart?id=${userId}`)
-    return response.data
+    // return response.data
+    return response.json()
+  }
+)
+
+export const updateUserCart = createAsyncThunk(
+  'cart/updateUserCart',
+  async (userId, thunkAPI) => {
+    const response = await fetch(`http://localhost:3001/usercart?id=${userId}`)
+    return response.json()
   }
 )
 
@@ -15,7 +25,7 @@ const cartSlice = createSlice({
   name: 'cart',
   initialState: {
     loading: false,
-    cart: [],
+    cart: {total:0, items:[]},
   },
   reducers: (create) => ({
     deleteItem: create.reducer((state, action) => {
@@ -56,10 +66,16 @@ const cartSlice = createSlice({
   }),
   extraReducers: (builder) => {
     // Add reducers for additional action types here, and handle loading state as needed
+    builder.addCase(fetchUserCart.pending, (state, action) => {
+      state.loading = true;
+    });
+
     builder.addCase(fetchUserCart.fulfilled, (state, action) => {
-      // Add user to the state array
-      state.entities.push(action.payload)
+      // Add items
+      state.cart = action.payload
+      state.loading = false
     })
+    
   },
 })
 

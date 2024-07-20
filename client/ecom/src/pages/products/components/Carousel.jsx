@@ -89,14 +89,14 @@ function Carousel(props) {
   }
 
   if (wrapper.current) {
-    if (clientWidth !== wrapper.current.clientWidth) {
+    if (clientWidth !== wrapper.current.clientWidth && clientWidth > 0 ) {
       debounceChangeScroll(index)
     }
   }
 
   return (
     <div id="carouselExampleControls" className="carousel slide" data-bs-ride="carousel"
-      style={{ "overflow": "hidden, hidden" }}
+      style={{ "overflow": "hidden, hidden", "marginTop":"0.4rem" }}
     >
       <div
         ref={wrapper}
@@ -122,11 +122,11 @@ function Carousel(props) {
             <div>loading</div>
         }
       </div>
-      <button style={{ "overflow": "hidden" }} className="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev" onClick={handleLeft}>
+      <button style={{ "overflow": "hidden", maxHeight:'min-content', alignSelf:'center' }} className="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev" onClick={handleLeft}>
         <span className="carousel-control-prev-icon" aria-hidden="true"></span>
         <span className="visually-hidden">Previous</span>
       </button>
-      <button style={{ "overflow": "hidden" }} className="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next" onClick={handleRight}>
+      <button style={{ "overflow": "hidden", maxHeight:'min-content', alignSelf:'center' }} className="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next" onClick={handleRight}>
         <span className="carousel-control-next-icon" aria-hidden="true"></span>
         <span className="visually-hidden">Next</span>
       </button>

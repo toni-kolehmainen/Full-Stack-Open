@@ -2,13 +2,14 @@ const mongoose = require('mongoose')
 
 const product = new mongoose.Schema({
   id: {
-    type: String,
-    required: true
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref:'products'
   },
-  // amount: {
-  //   type: Number,
-  //   required: true
-  // }
+  amount: {
+    type: Number,
+    required: true
+  }
 })
 
 const userCartSchema = new mongoose.Schema({
@@ -21,7 +22,7 @@ const userCartSchema = new mongoose.Schema({
     type: Boolean,
     required: true,
   },
-  products: [product]
+  cart: [product]
 })
 
 userCartSchema.set('toJSON', {
