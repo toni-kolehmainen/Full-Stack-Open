@@ -14,6 +14,7 @@ import { Button } from 'react-bootstrap'
 import ShoppingCart from './ShoppingCart'
 import useToggle from '../../hooks/useToggle'
 import { ThemeContext } from '../../redux/context/ThemeContext'
+import { Link } from "react-router-dom"
 /**
  * Component for site navigation bar.
  */
@@ -21,10 +22,10 @@ import { ThemeContext } from '../../redux/context/ThemeContext'
 
 function NavigationBar({ i18n }) {
   const {themeDark, toggleTheme} = useContext(ThemeContext);
+
   const canvas = useCanvas()
   const cart = useToggle()
   const { t } = useTranslation()
-  // const [themeLight, setThemeLight] = useState(document.documentElement.getAttribute('data-bs-theme'))
   const [collapseNavbar, setCollapseNavbar] = useState(false)
   const loc = useLocation()
   const noNav = ['/signin', '/signup']
@@ -59,19 +60,19 @@ function NavigationBar({ i18n }) {
   const borderActiveProducts = { borderTopStyle: loc.pathname === '/tuotteet' ? 'solid' : 'none' }
   return (
     <>
-      <Navbar className='border-bottom fixed-top' bg={themeDark ? 'light' : 'dark'} data-bs-theme={themeDark ? 'light' : 'dark'}>
+      <Navbar className='border-bottom fixed-top' bg={themeDark ? 'dark' : 'light'} data-bs-theme={themeDark ? 'dark' : 'light'}>
         <Container className='px-md-5 justify-content-lg-around' fluid>
           <Nav className="justify-content-md-start">
             {collapseNavbar ? <Nav.Link style={styleNav} onClick={canvas.openOffcanvas} className=""><IoMenuSharp style={sizeIcon} /></Nav.Link> : null}
-            <Navbar.Brand href="/" className="brand-text m-auto"
+            <Navbar.Brand as={Link} to="/" className="brand-text m-auto"
               style={{ 'color': '#32BF6F', 'borderTopColor': '#32BF6F', 'borderTopWidth': '3px', ...borderActiveHome }}>
               E-Shop
             </Navbar.Brand>
           </Nav>
           {collapseNavbar ? null :
             <Nav>
-              <Nav.Link href='/kaupat' style={{ ...styleNav, ...borderActiveStores }}>{t('stores')}</Nav.Link>
-              <Nav.Link href='/tuotteet' style={{ ...styleNav, ...borderActiveProducts }}>{t('products')}</Nav.Link>
+              <Nav.Link as={Link} to='/kaupat'  style={{ ...styleNav, ...borderActiveStores }}>{t('stores')}</Nav.Link>
+              <Nav.Link as={Link} to='/tuotteet' style={{ ...styleNav, ...borderActiveProducts }}>{t('products')}</Nav.Link>
             </Nav>
           }
           <Nav className="justify-content-md-end">
@@ -87,7 +88,7 @@ function NavigationBar({ i18n }) {
       </Navbar>
       <Offcanvas show={canvas.showOffcanvas} onHide={canvas.closeOffcanvas} placement="start">
         <Offcanvas.Header closeButton>
-          <Navbar.Brand href="/" className="brand-text" style={{ 'color': '#32BF6F' }}>E-Shop</Navbar.Brand>
+          <Navbar.Brand as={Link} to="/" className="brand-text" style={{ 'color': '#32BF6F' }}>E-Shop</Navbar.Brand>
         </Offcanvas.Header>
         <Offcanvas.Body>
           <Nav className=" flex-grow-1">
@@ -95,7 +96,7 @@ function NavigationBar({ i18n }) {
           </Nav>
         </Offcanvas.Body>
       </Offcanvas>
-      {/* <ShoppingCart close={cart.closeOffcanvas} show={cart.showOffcanvas} /> */}
+      <ShoppingCart close={cart.closeOffcanvas} show={cart.showOffcanvas} />
     </>
   )
 }

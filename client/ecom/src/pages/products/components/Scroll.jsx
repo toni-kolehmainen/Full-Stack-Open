@@ -66,7 +66,6 @@ function Scroll(props) {
     )
   }
   const handleStoreChange = (value) => {
-    // console.log(value)
     handleChange(value)
   }
   return (

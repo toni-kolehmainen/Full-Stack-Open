@@ -1,7 +1,16 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
 // find by ean add count
 // cart from {ean, amount}
+
+export const fetchUserCart = createAsyncThunk(
+  'cart/fetchUserCart',
+  async (userId, thunkAPI) => {
+    const response = await fetch(`http://localhost:3001/usercart?id=${userId}`)
+    return response.data
+  }
+)
+
 const cartSlice = createSlice({
   name: 'cart',
   initialState: {
@@ -44,25 +53,14 @@ const cartSlice = createSlice({
         return {...state, cart:newCart}
       }
     ),
-    // fetchItems: create.asyncThunk(
-    //   async (id, thunkApi) => {
-    //     const res = await fetch(`myApi/todos?id=${id}`)
-    //     return await res.json()
-    //   },
-    //   {
-    //     pending: (state) => {
-    //       state.loading = true
-    //     },
-    //     rejected: (state, action) => {
-    //       state.loading = false
-    //     },
-    //     fulfilled: (state, action) => {
-    //       state.loading = false
-    //       state.cart.push(action.payload)
-    //     },
-    //   }
-    // ),
   }),
+  extraReducers: (builder) => {
+    // Add reducers for additional action types here, and handle loading state as needed
+    builder.addCase(fetchUserCart.fulfilled, (state, action) => {
+      // Add user to the state array
+      state.entities.push(action.payload)
+    })
+  },
 })
 
 export const { addItem, deleteItem, fetchItems, addQuantity, minusQuantity } = cartSlice.actions

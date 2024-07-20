@@ -65,10 +65,11 @@ export const nodeApi = createApi({
       invalidatesTags: [{ type: 'Groups', id: 'LIST' }],
     }),
     getProductsBySlug: builder.mutation({
-      query() {
+      query(data) {
         return {
-          url: `tuotteet/:`,
+          url: `products/${data.slug}`,
           method: 'GET',
+          params: data.params
         }
       },
       invalidatesTags: [{ type: 'Groups', id: 'LIST' }],

@@ -18,7 +18,7 @@ const getProductTest = (req, res, next) => {
   const Product = dataController
   mongoose.connection
   mongoose.connection.readyState
-  Product.find({ }).sort({ 'id': -1 }).skip(0).limit(10).then(result => {
+  Product.find({}).sort({ 'id': -1 }).skip(0).limit(10).then(result => {
     result.forEach(group => {
       data.push(group)
     })
@@ -39,14 +39,32 @@ const getProductById = (req, res, next) => {
     res.status(200).send(data)
   })
 }
+// /ruokatori/liha/broileri-kana-ja-kalkkuna
 const getProductBySlug = (req, res, next) => {
+  let pathList = []
+  let data = []
+  const path = JSON.parse(JSON.stringify(req.params))
+  for (var key in path) {
+    pathList.push(path[key])
+  }
+  let combineSlug = pathList.join("/")
+  const Product = dataController
+  mongoose.connection
+  mongoose.connection.readyState
+  Product.find({ "hierarchy.slug": combineSlug }).populate("hierarchy").sort({ 'name': -1 }).skip(req.query.skip).limit(req.query.limit).then(result => {
+    result.forEach(group => {
+      data.push(group)
+    })
+    res.status(200).send(data)
+  })
+}
 
-  
+const search = (req, res, next) => {
   let data = []
   const Product = dataController
   mongoose.connection
   mongoose.connection.readyState
-  Product.find({ slug: req.body.slug }).sort({ 'id': -1 }).skip(req.body.limit).limit(req.body.skip).then(result => {
+  Product.find({ name: { "$regex": req.params.search, "$options": "i" } }).sort({ 'id': -1 }).skip(req.body.limit).limit(req.body.skip).then(result => {
     result.forEach(group => {
       data.push(group)
     })
@@ -64,7 +82,7 @@ const getProducts = (req, res, next) => {
     console.log(result.length)
     result.forEach(group => {
       data.push(group)
-      
+
     })
     res.status(200).send(data)
   })
@@ -123,30 +141,35 @@ const addProducts = async (req, res, next) => {
   // console.log(combined_data)
   const Product = dataController
   combined_data.map(async item => {
+  
+    try {
+      
     const product = new Product({
-    ean: item.ean,
-    slug: item.slug,
-    name: item.name,
-    price:item.price,
-    campaignPrice:item.pricing.campaignPrice,
-    isAgeLimitedByAlcohol:item.isAgeLimitedByAlcohol,
-    isNewProduct:item.isNewProduct,
-    frozen:item.frozen,
-    hierarchy:
-    item.hierarchyPath.map(({ name, slug }) =>
-      ({ name: name, slug: slug })),
-    imageUrl:item.productDetails.productImages.mainImage.urlTemplate,
-    brand:item.brandName,
-    unit:item.basicQuantityUnit,
-    comparisonPrice:item.comparisonPrice,
-    comparisonUnit:item.comparisonUnit,
-    quantityMultiplier:item.quantityMultiplier
-  })
-  const savedproducts = await product.save()
-  // console.log(savedproducts)
+      ean: item.ean,
+      slug: item.slug,
+      name: item.name,
+      price: item.price,
+      campaignPrice: item.pricing.campaignPrice,
+      isAgeLimitedByAlcohol: item.isAgeLimitedByAlcohol,
+      isNewProduct: item.isNewProduct,
+      frozen: item.frozen,
+      hierarchy:
+        item.hierarchyPath.map(({ name, slug }) =>
+          ({ name: name, slug: slug })),
+      imageUrl: item.productDetails.productImages.mainImage.urlTemplate,
+      brand: item.brandName,
+      unit: item.basicQuantityUnit,
+      comparisonPrice: item.comparisonPrice,
+      comparisonUnit: item.comparisonUnit,
+      quantityMultiplier: item.quantityMultiplier
+    })
+    await product.save()
+    } catch (error) {
+      // console.log(error)
+    }
   })
   res.status(200).send()
 }
 module.exports = {
-  getProductById, addProducts, getProducts, getProductBySlug, getProductTest
+  getProductById, addProducts, getProducts, getProductBySlug, getProductTest, search
 }

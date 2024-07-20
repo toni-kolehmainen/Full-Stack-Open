@@ -43,6 +43,7 @@ function ShoppingCart(props) {
     <motion.div
       animate={props.show ? "open" : "closed"}
       variants={variants}
+      initial={{ opacity: 0 }}
       id="slider-container" className="container w-25 bg-dark shadow-lg"
       style={{ 'alignSelf': 'end', 'backgroundColor': 'white', 'display': 'inline-flex', 'flexDirection': 'column', 'overflow': 'auto', 'zIndex': '2' }}
     >

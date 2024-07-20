@@ -1,47 +1,37 @@
 import './App.css'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { initTheme } from './services/globalHandler'
 import SiteRouter from './navigation/SiteRouter'
-import useTheme from './hooks/useTheme'
+import { v4 as uuidv4 } from 'uuid';
+import { useCookies } from 'react-cookie'
+import { useDispatch } from 'react-redux'
+import { fetchUserCart } from './redux/reducer/cartReducer'
 
-// const compose = (providers) =>
-//   providers.reduce((Prev, Curr) => ({ children }) => (
-//       <Prev>
-//           <Curr>{children}</Curr>
-//       </Prev>
-//   ));
-//   const ProviderCompose = compose([
-
-//     ThemeProvider,
-
-// ]);
 function App() {
-  const [language, setLanguage] = useState(null)
+  const [cookies, setCookie] = useCookies(['uuid_token'])
   const { i18n, t } = useTranslation()
-  const theme = useTheme()
-  
+  const dispatch = useDispatch()
+
   useEffect(() => {
-    initTheme(theme ? 'dark' : 'light')
+    if (!cookies.uuid_token) {
+      setCookie("uuid_token", uuidv4())
+    }
+    dispatch(fetchUserCart(cookies.uuid_token))
   }, [])
-  
+
   useEffect(() => {
     if (window.localStorage.getItem('language') === null) {
-      setLanguage('en')
       window.localStorage.setItem('language', 'en')
     } else {
       i18n.changeLanguage(window.localStorage.getItem('language'))
-      setLanguage(window.localStorage.getItem('language'))
     }
   }, [i18n])
 
   return (
-    <>
-      <div className="App">
-        {/* Maybe admin to add products */}
-        <SiteRouter i18n={i18n} />
-      </div>
-    </>
+    <div className="App">
+      {/* Maybe admin to add products */}
+          <SiteRouter i18n={i18n}/>
+    </div>
   )
 }
 

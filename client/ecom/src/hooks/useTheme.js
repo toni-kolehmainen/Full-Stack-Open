@@ -4,6 +4,7 @@ const useTheme = () => {
   const getCurrentTheme = () => window.matchMedia("(prefers-color-scheme: dark)").matches;
   const [theme, setTheme] = useState(getCurrentTheme());
   useEffect(() => {
+    
     const handleWindowTheme = (evt) => {
       setTheme(evt.matches)
     }

@@ -2,12 +2,9 @@ import { Button, Dropdown, Form, Modal, Row } from "react-bootstrap"
 import { useCanvas } from "@/hooks"
 import { GoArrowSwitch } from '@/assets/icons/icons'
 import { forwardRef, useCallback, useEffect, useMemo, useState } from "react"
-import { useGetStoresMutation } from "../../../services/api"
-import InfiniteScroll from 'react-infinite-scroll-component'
-// import debouce from "lodash.debounce";
+import { motion } from "framer-motion";
 import debounce from "lodash.debounce";
 import Scroll from "./Scroll"
-
 
 const CheckDropdownItem = forwardRef(
   ({ children, id, checked, onChange }, ref) => {
@@ -27,7 +24,7 @@ const CheckDropdownItem = forwardRef(
 function StoreModal() {
   const current = new Date();
   const date = `${current.getDate()}/${current.getMonth() + 1}/${current.getFullYear()}`;
-
+  const [isHovered, setHovered] = useState(false)
   const modal = useCanvas()
   const [searchText, setSearchText] = useState("")
   const [brands, setBrands] = useState([
@@ -47,8 +44,16 @@ function StoreModal() {
   }
   return (
     <>
-      <Button onClick={modal.openOffcanvas} id="button-swich" style={{ 'backgroundColor': '#00000000', 'borderColor': '#0d6efd60' }}>
-        <GoArrowSwitch />
+      <Button onClick={modal.openOffcanvas}
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+        id="button-swich" style={{ 'backgroundColor': '#00000000', 'borderColor': '#0d6efd60' }}>
+        <motion.div
+          initial={false}
+          animate={{ transform: isHovered ? 'rotateY(180deg)' : 'rotateY(0deg)' }}
+        >
+          <GoArrowSwitch />
+        </motion.div>
       </Button>
       <Modal className="overflow-hidden" size="lg" show={modal.showOffcanvas} onHide={modal.closeOffcanvas} centered>
         <Modal.Header closeButton>
@@ -87,55 +92,7 @@ function StoreModal() {
               </Form.Group>
             </Form>
           </div>
-          {/* <div id="scrollableDiv" style={{ "overflowY": "auto", "display": "flex", "flexDirection": "column", "flex": "1", "maxHeight": "70vh", "scrollbarColor": "#495057 #bada5500" }}> */}
-            <Scroll brands={brands} searchText={searchText}/>
-            {/* <div style={{ "display": "flex", "flexDirection": "column" }}>
-              <div>
-                Haulla löytyi:
-              </div>
-              <InfiniteScroll
-                dataLength={data.length}
-                next={reFetchData}
-                height="70vh"
-                hasMore={true}
-                loader={<p>Loading...</p>}
-                endMessage={<p>No more data to load.</p>}
-              >
-                    {
-                      (!isUpdating & data !== undefined) ?
-
-                        data.map((store) => (
-                          <div key={store.id} className="bg-transparent rounded-2 shadow-5-strong p-4 border border-1" style={{ "display": "grid" }}>
-                            <div className="modal-title">
-                              {store.name}
-                            </div>
-                            <div className="row">
-                              <div className="col-9">
-                                <div className="row row-cols-auto">
-                                  <div className="col">
-                                    {store.weeklyOpeningHours[0].dates ? store.weeklyOpeningHours[0].dates[0].open + "-" + store.weeklyOpeningHours[0].dates[0].close : null}
-                                  </div>
-                                  <div className="col">
-                                    {store.location[0].postcodeName}
-                                  </div>
-                                  <div className="col">
-                                    <a className="link-primary" href={store.slug}>Tarkista aukioloajat</a>
-                                  </div>
-                                </div>
-                              </div>
-                              <div className="col-3">
-                                <Button variant="outline-primary">Valitse kauppa</Button>
-                              </div>
-                            </div>
-                          </div>
-
-                        )) : null
-                    } */}
-                  {/* </div>
-                </div> */}
-              {/* </InfiniteScroll> */}
-            {/* </div> */}
-            {/* </div> */}
+          <Scroll brands={brands} searchText={searchText} />
         </Modal.Body>
       </Modal>
     </>

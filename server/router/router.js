@@ -2,6 +2,7 @@ const dataController = require('../controllers/group_controller')
 const storeController = require('../controllers/store_controller')
 const productController = require('../controllers/product')
 const userController = require('../controllers/user')
+const userCartController = require('../controllers/user/cart/index')
 const router = require('express').Router()
 
 router.get('/gettest', dataController.getTest);
@@ -23,6 +24,12 @@ router.get('/getproductstest', productController.getProductTest);
 router.get('/addproducts', productController.addProducts);
 router.get('/getproducts', productController.getProducts);
 router.get('/getproductbyid', productController.getProductById);
-router.get('/getproductbyslug', productController.getProductBySlug);
+router.get('/products/:slug/:slug1?/:slug2?', productController.getProductBySlug);
+router.post('/productsearch/:search', productController.search);
+
+router.get('/usercart', userCartController.getCart);
+router.get('/createcart', userCartController.createCart);
+router.get('/producttocart', userCartController.productToCart);
+
 
 module.exports = router

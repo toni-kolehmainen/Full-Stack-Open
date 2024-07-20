@@ -5,6 +5,7 @@ import { IoPersonOutline } from '../../assets/icons/icons'
 import '../../assets/components/loginbutton.css'
 import { useTranslation } from 'react-i18next'
 import { useCanvas } from '../../hooks'
+import { Link } from 'react-router-dom'
 // add style
 
 function LoginButton({ collapseNavbar }) {
@@ -30,9 +31,9 @@ function LoginButton({ collapseNavbar }) {
               <br/>
             Kun olet liittänyt S-Etukortin jäsennumeron tiliisi, saat ostoksista myös Bonusta.
             </span>
-            <Button style={{ 'backgroundColor':'#19875400', 'color':'#198754' }} className="m-1" variant="success" href="/">Lue lisää</Button>
-            <Button style={{ 'backgroundColor':'#198754ff' }}  className="m-1" variant="success"  href="/signin">Kirjaudu</Button>
-            <Button style={{ 'borderColor':'#19875440','backgroundColor':'#19875440', 'color':'#198754' }}  className="m-1" variant="success" href="/signup">Rekisteröidy</Button>
+            <Button style={{ 'backgroundColor':'#19875400', 'color':'#198754' }} className="m-1" variant="success" as={Link} to="/">Lue lisää</Button>
+            <Button style={{ 'backgroundColor':'#198754ff' }}  className="m-1" variant="success" as={Link}  to="/signin">Kirjaudu</Button>
+            <Button style={{ 'borderColor':'#19875440','backgroundColor':'#19875440', 'color':'#198754' }}  className="m-1" variant="success" as={Link} to="/signup">Rekisteröidy</Button>
           </Nav>
         </Offcanvas.Body>
       </Offcanvas>

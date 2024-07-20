@@ -12,4 +12,5 @@
 | 16.7. | 8    | Kauppojen haku serveriltä. Lisäksi filteri ja haku toteutu niin serveriin kuin clientiin. Modaliin kauppa layout ja infinitescroll. |
 | 17.7. | 2    | Kauppojen dataan lisätty 24h aukioloaika ja kordinaatit. Tuotteiteiden valinta toteutettu createSlice:n avulla. |
 | 18.7. | 1    | Router nested components ja tuotteiden komponenttien erittelyä |
+| 19.7. | 7    | Tuotteiden haku serveriltä. Async createslicen, jotta saadaan ostokorin esineet pidettyä ajan tasalla. Bugi korjaus teeman kannssa |
 | yht   | 33   | | 
