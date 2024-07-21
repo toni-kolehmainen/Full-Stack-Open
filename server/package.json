@@ -26,6 +26,7 @@
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.3.0",
     "mongoose": "^8.2.0",
+    "mongoose-unique-validator": "^5.0.1",
     "nvm": "^0.0.4",
     "pg": "^8.11.3",
     "sequelize": "^6.37.1"

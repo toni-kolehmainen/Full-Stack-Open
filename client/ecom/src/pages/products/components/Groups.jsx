@@ -33,10 +33,12 @@ export function SlugView() {
         className='wrapper'
         style={{ "display": "grid" }}
         loader={<p>Loading...</p>}
-        endMessage={<p style={{ textAlign: "center" }}>No more data to load.</p>}
+        endMessage={<></>}
       >
         {infiniteScroll.data.map(item => (
-          <ProductCard item={item} />
+          <div key={item.ean}>
+            <ProductCard item={item} />
+          </div>
         ))}
       </InfiniteScroll>
     </div>

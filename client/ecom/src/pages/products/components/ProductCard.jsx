@@ -3,10 +3,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { ThemeContext } from "../../../redux/context/ThemeContext";
 import { Button, Spinner } from "react-bootstrap";
 import { GoArrowSwitch, IoAdd, IoRemove } from '@/assets/icons/icons'
-import { addItem, addQuantity, deleteItem, fetchUserCart, minusQuantity } from "../../../redux/reducer/cartReducer";
+import { addItem, addItemFetch, addQuantity, addQuantityFetch, deleteItem, deleteItemFetch, fetchUserCart, minusQuantity, minusQuantityFetch } from "../../../redux/reducer/cartReducer";
 import { motion } from "framer-motion";
+import { useCookies } from "react-cookie";
 
 function ProductCard(props) {
+  const [cookies, setCookie] = useCookies(['uuid_token'])
   const dispatch = useDispatch()
   const { themeDark } = useContext(ThemeContext);
 
@@ -15,21 +17,21 @@ function ProductCard(props) {
   }
 
   const handleMinusItem = (value) => {
-    const inCart = cartItems.cart.items.find(n => n.ean === value)
+    const inCart = cartItems.cart.items.find(n => n.id.id === value)
     if (inCart.amount > 1) {
-      dispatch(minusQuantity(value))
+      dispatch(minusQuantityFetch({'userId':cookies.uuid_token, 'productId':value, 'amount':inCart.amount}))
     } else {
-      const index = cartItems.cart.items.findIndex(n => n.ean === value)
-      dispatch(deleteItem(index))
+      dispatch(deleteItemFetch({'userId':cookies.uuid_token, 'productId':value}))
     }
   }
 
   const handleAddItem = (value) => {
-    const inCart = cartItems.cart.items.find(n => n.ean === value)
+    console.log(value)
+    const inCart = cartItems.cart.items.find(n => n.id.id === value)
     if (inCart) {
-      dispatch(addQuantity(value))
+      dispatch(addQuantityFetch({'userId':cookies.uuid_token, 'productId':value}))
     } else {
-      dispatch(addItem(value))
+      dispatch(addItemFetch({'userId':cookies.uuid_token, 'productId':value}))
     }
   }
 
@@ -37,13 +39,13 @@ function ProductCard(props) {
     return items
   })
   const itemsLoading = useSelector(state => state.items.loading);
-  let bg = cartItems.cart.items.find(n => n.id.ean === props.item.ean) ? '#32BF6F28' : '#f8f9fa'
+  let bg = cartItems.cart.items.find(n => n.id.id === props.item.id) ? '#32BF6F28' : '#f8f9fa'
   
   return (
     <motion.div
       whileHover={{ scale: 1.01, y: -3, boxShadow: '0 1.2rem 1.6rem rgba(0, 0, 0, 0.125)' }}
     >
-      <div className='card rounded-2 p-4 border' key={props.item.ean}
+      <div className='card rounded-2 p-4 border' 
         style={{ "display": "grid", "height": "100%", "width": "100%", "position": "relative", minWidth: "180px", placeSelf: "center", backgroundColor:bg }}>
         <div className='image' style={{ "placeSelf": "center" }}>
           <img src={urlToImage(props.item.imageUrl)}
@@ -65,15 +67,15 @@ function ProductCard(props) {
         </div>
         <div className='buttons' style={{ "display": "flex", "justifyContent": "space-between" }}>
           <div style={{ "alignSelf": "center" }}>
-            <Button onClick={() => handleMinusItem(props.item.ean)} variant={themeDark ? 'dark' : 'light'} className='button-variant'><IoRemove /></Button>
+            <Button onClick={() => handleMinusItem(props.item.id)} variant={themeDark ? 'dark' : 'light'} className='button-variant'><IoRemove /></Button>
           </div>
           <div style={{ "alignSelf": "center" }}>
             {itemsLoading ? <Spinner /> :
-              cartItems.cart.items.find(n => n.id.ean === props.item.ean) ? cartItems.cart.items.find(n => n.id.ean === props.item.ean).amount : '0'}
+              cartItems.cart.items.find(n => n.id.id === props.item.id) ? cartItems.cart.items.find(n => n.id.id === props.item.id).amount : '0'}
             kpl
           </div>
           <div style={{ "alignSelf": "center" }}>
-            <Button onClick={() => handleAddItem(props.item.ean)} variant={themeDark ? 'dark' : 'light'} className='button-variant'><IoAdd /></Button>
+            <Button onClick={() => handleAddItem(props.item.id)} variant={themeDark ? 'dark' : 'light'} className='button-variant'><IoAdd /></Button>
           </div>
         </div>
       </div>

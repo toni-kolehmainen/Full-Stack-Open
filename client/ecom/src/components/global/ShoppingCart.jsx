@@ -37,7 +37,7 @@ function ShoppingModal(props) {
   )
 }
 function ShoppingCart(props) {
-  const [createPdf,setCreatePdf] = useState(false)
+  const [createPdf, setCreatePdf] = useState(false)
   const { themeDark } = useContext(ThemeContext);
   const viewport = useViewport()
   const info = useSelector(state => state.items.cart)
@@ -54,9 +54,15 @@ function ShoppingCart(props) {
   const byCategories = useSelector(getByCategories);
   const itemsLoading = useSelector(state => state.items.loading);
 
-  const handleClick = ()=> {
+  const handleClick = () => {
     setCreatePdf(true)
   }
+  const handleHideLink = () => {
+    setTimeout(() => {
+      setCreatePdf(false)
+    }, 1000)
+  }
+
   if (viewport.width < 992) {
     return (
       <ShoppingModal show={props.show} close={props.close} />
@@ -69,7 +75,7 @@ function ShoppingCart(props) {
       variants={variants}
       initial={{ opacity: 0 }}
       id="slider-container" className={`container bg-${themeName} shadow-lg`}
-      style={{ "width": "30%", 'alignSelf': 'end', 'backgroundColor': 'white', 'display': 'inline-flex', 'flexDirection': 'column', 'overflow': 'auto', 'zIndex': '2' }}
+      style={{ "width": "30%", 'alignSelf': 'end', 'backgroundColor': 'white', 'display': 'flex', 'flexDirection': 'column', 'overflowY': 'auto',  'zIndex': '2' }}
     >
       <div className='cart-title row mt-2 align-items-center'>
         <div className='cart-title col-auto' style={{ "textAlign": "start", "fontSize": 20 }}>
@@ -78,15 +84,18 @@ function ShoppingCart(props) {
           {info.items.length > 1 ? 'Ostokorissa on ' + info.items.length + ' tuotetta' : null}
         </div>
         <div className='cart-title-icon col' style={{ "textAlign": "end", "fontSize": 24 }}>
-          {createPdf ? <RendererPdf></RendererPdf> : null}
-          <Dropdown >
+          {/*  */}
+          <Dropdown autoClose="outside" onBlur={handleHideLink}>
             <Dropdown.Toggle variant="" id="dropdown-basic">
               <IoEllipsisHorizontal />
             </Dropdown.Toggle>
-            <Dropdown.Menu>
+            <Dropdown.Menu >
               <Dropdown.Item key="test" onClick={handleClick}>
-                test
+                Lataa ostoslista
               </Dropdown.Item>
+              <Dropdown.ItemText >
+                {createPdf ? <RendererPdf data={byCategories} handleHideLink={handleHideLink} /> : null}
+              </Dropdown.ItemText>
             </Dropdown.Menu>
           </Dropdown>
         </div>
@@ -94,7 +103,7 @@ function ShoppingCart(props) {
       {byCategories.length === 0 ? <EmptyBasket /> : <WithItems items={byCategories} theme={themeName} />}
       <Button className='mb-2' style={{ "display": "flex", "justifyContent": "space-between" }}>
         <span style={{ "textAlign": "start" }}>Siirry eteenpäin</span>
-        <span style={{ "textAlign": "end" }}>1.23 €</span>
+        <span style={{ "textAlign": "end" }}>{info.total} €</span>
       </Button>
     </motion.div>
   )
@@ -104,11 +113,11 @@ const WithItems = (props) => {
   // console.log(Object.entries(props))
 
   return (
-    <div className='row align-items-start' style={{ 'flex': '1', 'overflow': 'auto', "flexDirection": "column", height: "70vh", gap: "5px" }} >
+    <div className='row align-items-start' style={{ 'flex': '1', 'overflow': 'auto', "flexDirection": "row", height: "70vh", gap: "5px" }} >
       {
         Object.entries(props.items).map(([key, items]) => (
           <div key={key}>
-            <div>{key}</div>
+            <div style={{"fontSize":'1.1rem'}}>{key}</div>
             {
               items.map((item) => (
                 <div key={item.id.ean}>

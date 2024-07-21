@@ -6,63 +6,60 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 export const fetchUserCart = createAsyncThunk(
   'cart/fetchUserCart',
   async (userId, thunkAPI) => {
-    console.log("userid",userId)
+    console.log("userid", userId)
     const response = await fetch(`http://localhost:3001/usercart?id=${userId}`)
     // return response.data
     return response.json()
   }
 )
 
-export const updateUserCart = createAsyncThunk(
-  'cart/updateUserCart',
-  async (userId, thunkAPI) => {
-    const response = await fetch(`http://localhost:3001/usercart?id=${userId}`)
+export const addItemFetch = createAsyncThunk(
+  'cart/addtocart',
+  async (id, thunkAPI) => {
+    const response = await fetch(`http://localhost:3001/addtocart?id=${id.userId}&product=${id.productId}`)
     return response.json()
   }
 )
+
+export const deleteItemFetch = createAsyncThunk(
+  'cart/deleteformcart',
+  async (id, thunkAPI) => {
+    const response = await fetch(`http://localhost:3001/deleteformcart?id=${id.userId}&product=${id.productId}`)
+    return response.json()
+  }
+)
+
+export const addQuantityFetch = createAsyncThunk(
+  'cart/addquantity',
+  async (id, thunkAPI) => {
+    const response = await fetch(`http://localhost:3001/addquantity?id=${id.userId}&product=${id.productId}`)
+    return response.json()
+  }
+)
+
+export const minusQuantityFetch = createAsyncThunk(
+  'cart/minusquantity',
+  async (id, thunkAPI) => {
+    const response = await fetch(`http://localhost:3001/minusquantity?id=${id.userId}&product=${id.productId}&amount=${id.amount}`)
+    return response.json()
+  }
+)
+const countTotal = (items) => {
+  let total = 0.0
+  console.log(items)
+  items.map(({ id, amount }) => {
+    total += parseFloat(id.price.$numberDecimal) * amount
+  })
+  return Math.round( total *100) /100
+}
 
 const cartSlice = createSlice({
   name: 'cart',
   initialState: {
     loading: false,
-    cart: {total:0, items:[]},
+    cart: { total: 0, items: [] },
   },
   reducers: (create) => ({
-    deleteItem: create.reducer((state, action) => {
-      state.cart.splice(action.payload, 1)
-    }),
-    addItem: create.reducer(
-      (state, action) => {
-        const newItem = {"ean" :action.payload, "amount":1}
-        state.cart.push(newItem)
-      }
-    ),
-    addQuantity: create.reducer(
-      (state, action) => {
-        const itemToChange = state.cart.find(n => n.ean === action.payload)
-        const changedItem = { 
-          ...itemToChange, 
-          amount: itemToChange.amount + 1
-        }
-        const newCart = state.cart.map(item =>
-          item.ean !== action.payload ? item : changedItem 
-        )
-        return {...state, cart:newCart}
-      }
-    ),
-    minusQuantity: create.reducer(
-      (state, action) => {
-        const itemToChange = state.cart.find(n => n.ean === action.payload)
-        const changedItem = { 
-          ...itemToChange, 
-          amount: itemToChange.amount - 1
-        }
-        const newCart = state.cart.map(item =>
-          item.ean !== action.payload ? item : changedItem 
-        )
-        return {...state, cart:newCart}
-      }
-    ),
   }),
   extraReducers: (builder) => {
     // Add reducers for additional action types here, and handle loading state as needed
@@ -75,7 +72,50 @@ const cartSlice = createSlice({
       state.cart = action.payload
       state.loading = false
     })
-    
+
+    builder.addCase(addItemFetch.pending, (state, action) => {
+      state.loading = true;
+    });
+
+    builder.addCase(addItemFetch.fulfilled, (state, action) => {
+      // Add items
+      state.cart.items.push(action.payload)
+      state.cart.total = countTotal(state.cart.items)
+      state.loading = false
+    })
+    builder.addCase(deleteItemFetch.pending, (state, action) => {
+      state.loading = true;
+    });
+
+    builder.addCase(deleteItemFetch.fulfilled, (state, action) => {
+      state.cart.items = state.cart.items.filter(n => {return  n.id.id !== action.payload.id})
+      state.cart.total = countTotal(state.cart.items)
+      state.loading = false
+    })
+    builder.addCase(addQuantityFetch.pending, (state, action) => {
+      state.loading = true;
+    });
+
+    builder.addCase(addQuantityFetch.fulfilled, (state, action) => {
+      const newItems = state.cart.items.map(item =>
+        item.id.id !== action.payload.id.id ? item : action.payload
+      )
+      state.cart.items = newItems
+      state.cart.total = countTotal(state.cart.items)
+      state.loading = false
+    })
+
+    builder.addCase(minusQuantityFetch.pending, (state, action) => {
+      state.loading = true;
+    });
+    builder.addCase(minusQuantityFetch.fulfilled, (state, action) => {
+      const newItems = state.cart.items.map(item =>
+        item.id.id !== action.payload.id.id ? item : action.payload
+      )
+      state.cart.items = newItems
+      state.cart.total = countTotal(state.cart.items)
+      state.loading = false
+    })
   },
 })
 

@@ -1,14 +1,17 @@
 const mongoose = require('mongoose')
+const uniqueValidator = require('mongoose-unique-validator');
 
 const product = new mongoose.Schema({
   id: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
+    // unique:true,
     ref:'products'
   },
   amount: {
     type: Number,
-    required: true
+    required: true,
+    min: 1
   }
 })
 
@@ -16,7 +19,8 @@ const userCartSchema = new mongoose.Schema({
   uuid: {
     type: String,
     required: true,
-    unique:true
+    unique:true,
+    dropDups: true
   },
   isSigned: {
     type: Boolean,
@@ -24,7 +28,9 @@ const userCartSchema = new mongoose.Schema({
   },
   cart: [product]
 })
-
+// userCartSchema.path('cart').validate(function(v) {
+//   return v.amount > 0;
+// });
 userCartSchema.set('toJSON', {
   transform: (document, returnedObject) => {
     returnedObject.objectid = returnedObject._id.toString()

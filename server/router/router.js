@@ -29,7 +29,9 @@ router.post('/productsearch/:search', productController.search);
 
 router.get('/usercart', userCartController.getCart);
 router.get('/createcart', userCartController.createCart);
-router.get('/producttocart', userCartController.productToCart);
-
+router.get('/addtocart', userCartController.addItem);
+router.get('/deleteformcart', userCartController.deleteItem);
+router.get('/addquantity', userCartController.addQuantity);
+router.get('/minusquantity', userCartController.minusQuantity);
 
 module.exports = router
