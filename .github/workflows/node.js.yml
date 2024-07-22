@@ -27,7 +27,7 @@ jobs:
       run: npm install
       working-directory: client/ecom
     - name: Check style
-      run: npm run eslint
+      run: npm run lint
       working-directory: client/ecom
     - run: npm test
       working-directory: client/ecom
