@@ -22,12 +22,11 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-        cache-dependency-path: './client/**/package-lock.json'
     - name: Install dependencies 
       run: npm install
-      working-directory: client
+      working-directory: client/ecom
     - name: Check style
       run: npm run eslint
-      working-directory: client
+      working-directory: client/ecom
     - run: npm test
-      working-directory: client
+      working-directory: client/ecom
