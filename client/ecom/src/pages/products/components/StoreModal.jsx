@@ -1,10 +1,10 @@
-import { Button, Dropdown, Form, Modal, Row } from "react-bootstrap"
-import { useCanvas } from "@/hooks"
+import { Button, Dropdown, Form, Modal, Row } from 'react-bootstrap'
+import { useCanvas } from '@/hooks'
 import { GoArrowSwitch } from '@/assets/icons/icons'
-import { forwardRef, useCallback, useEffect, useMemo, useState } from "react"
-import { motion } from "framer-motion";
-import debounce from "lodash.debounce";
-import Scroll from "./Scroll"
+import { forwardRef, useCallback, useEffect, useMemo, useState } from 'react'
+import { motion } from 'framer-motion'
+import debounce from 'lodash.debounce'
+import Scroll from './Scroll'
 
 const CheckDropdownItem = forwardRef(
   ({ children, id, checked, onChange }, ref) => {
@@ -17,23 +17,26 @@ const CheckDropdownItem = forwardRef(
           onChange={onChange && onChange.bind(onChange, id)}
         />
       </Form.Group>
-    );
+    )
   }
-);
+)
+CheckDropdownItem.displayName = 'drodownItem'
 
 function StoreModal() {
-  const current = new Date();
-  const date = `${current.getDate()}/${current.getMonth() + 1}/${current.getFullYear()}`;
+  const current = new Date()
+  const date = `${current.getDate()}/${current.getMonth() + 1}/${current.getFullYear()}`
   const [isHovered, setHovered] = useState(false)
   const modal = useCanvas()
-  const [searchText, setSearchText] = useState("")
+  const [searchText, setSearchText] = useState('')
   const [brands, setBrands] = useState([
-    { id: 1, label: "Prisma", checked: true, brand: "prisma" },
-    { id: 2, label: "Sale", checked: true, brand: "sale" },
-    { id: 3, label: "S-market", checked: true, brand: "s-market" }])
+    { id: 1, label: 'Prisma', checked: true, brand: 'prisma' },
+    { id: 2, label: 'Sale', checked: true, brand: 'sale' },
+    { id: 3, label: 'S-market', checked: true, brand: 's-market' }])
 
-  const debouncedSearch = useCallback(debounce(e =>
-    setSearchText(e.target.value), 500), []
+  const handleSearch = useCallback(debounce(e => {
+    setSearchText(e.target.value)
+  }
+  , 500), []
   )
 
   const handleChecked = (key) => {
@@ -64,7 +67,7 @@ function StoreModal() {
             <Form>
               <Form.Group as={Row} >
                 <div className="col-8">
-                  <Form.Control type="search" placeholder="Search" onChange={debouncedSearch} />
+                  <Form.Control type="search" placeholder="Search" onChange={handleSearch} />
                 </div>
                 <div className="col-4">
                   <Dropdown >

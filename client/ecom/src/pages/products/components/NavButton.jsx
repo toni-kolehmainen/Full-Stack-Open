@@ -1,13 +1,13 @@
-import { Button } from "react-bootstrap"
-import { useState } from "react"
+import { Button } from 'react-bootstrap'
+import { useState } from 'react'
 
 function NavButton(props) {
-  const [bgColor, setBgColor] = useState("#d3d4d500")
+  const [bgColor, setBgColor] = useState('#d3d4d500')
   const onHover = () => {
-    setBgColor("#42464960")
+    setBgColor('#42464960')
   }
   const onHoverEnd = () => {
-    setBgColor("#d3d4d500")
+    setBgColor('#d3d4d500')
   }
   return (
     <Button
@@ -15,7 +15,7 @@ function NavButton(props) {
       onMouseLeave={onHoverEnd}
       href={props.href}
       variant='transparent'
-      style={{ "color": "#dee2e6", backgroundColor: bgColor }}
+      style={{ 'color': '#dee2e6', backgroundColor: bgColor }}
     >
       {props.text}
     </Button>

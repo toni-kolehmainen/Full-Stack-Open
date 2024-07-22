@@ -1,36 +1,36 @@
-import debounce from "lodash.debounce"
-import { useCallback, useEffect, useState } from "react"
-import { Form } from "react-bootstrap"
-import { createSearchParams, useLocation, useNavigate, useSearchParams } from "react-router-dom";
+import debounce from 'lodash.debounce'
+import { useCallback, useEffect, useState } from 'react'
+import { Form } from 'react-bootstrap'
+import { createSearchParams, useLocation, useNavigate, useSearchParams } from 'react-router-dom'
 
 function Searchbar() {
-  const location = useLocation();
-  const navigate = useNavigate();
-  const [searchText, setSearchText] = useState("")
+  const location = useLocation()
+  const navigate = useNavigate()
+  const [searchText, setSearchText] = useState('')
 
   useEffect(() => {
-    if (("/tuotteet/tuotehaku".includes(location.pathname))) {
+    if (('/tuotteet/tuotehaku'.includes(location.pathname))) {
       console.log(searchText)
       if (searchText.length === 0) {
-        navigate("/tuotteet")
+        navigate('/tuotteet')
       } else {
         navigate({
-          pathname: "/tuotteet/tuotehaku",
+          pathname: '/tuotteet/tuotehaku',
           search: `?${createSearchParams({
             haku: searchText
           })}`
-        });
+        })
       }
     }
-  }, [searchText])
+  }, [])
 
   const debouncedSearch = useCallback(debounce(e =>
     setSearchText(e.target.value), 500), []
   )
 
   const handleClick = () => {
-    if (!("/tuotteet/tuotehaku".includes(location.pathname))) {
-      navigate("/tuotteet")
+    if (!('/tuotteet/tuotehaku'.includes(location.pathname))) {
+      navigate('/tuotteet')
     }
   }
 
@@ -50,8 +50,8 @@ function Searchbar() {
   )
 }
 export function SearchResult() {
-  const [searchParams] = useSearchParams();
-  let queryParamHaku = searchParams.get("haku")
+  const [searchParams] = useSearchParams()
+  let queryParamHaku = searchParams.get('haku')
   return (
     <>
       Haku : {queryParamHaku}

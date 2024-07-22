@@ -6,7 +6,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 export const fetchUserCart = createAsyncThunk(
   'cart/fetchUserCart',
   async (userId, thunkAPI) => {
-    console.log("userid", userId)
+    console.log('userid', userId)
     const response = await fetch(`http://localhost:3001/usercart?id=${userId}`)
     // return response.data
     return response.json()
@@ -64,8 +64,8 @@ const cartSlice = createSlice({
   extraReducers: (builder) => {
     // Add reducers for additional action types here, and handle loading state as needed
     builder.addCase(fetchUserCart.pending, (state, action) => {
-      state.loading = true;
-    });
+      state.loading = true
+    })
 
     builder.addCase(fetchUserCart.fulfilled, (state, action) => {
       // Add items
@@ -74,8 +74,8 @@ const cartSlice = createSlice({
     })
 
     builder.addCase(addItemFetch.pending, (state, action) => {
-      state.loading = true;
-    });
+      state.loading = true
+    })
 
     builder.addCase(addItemFetch.fulfilled, (state, action) => {
       // Add items
@@ -84,8 +84,8 @@ const cartSlice = createSlice({
       state.loading = false
     })
     builder.addCase(deleteItemFetch.pending, (state, action) => {
-      state.loading = true;
-    });
+      state.loading = true
+    })
 
     builder.addCase(deleteItemFetch.fulfilled, (state, action) => {
       state.cart.items = state.cart.items.filter(n => {return  n.id.id !== action.payload.id})
@@ -93,8 +93,8 @@ const cartSlice = createSlice({
       state.loading = false
     })
     builder.addCase(addQuantityFetch.pending, (state, action) => {
-      state.loading = true;
-    });
+      state.loading = true
+    })
 
     builder.addCase(addQuantityFetch.fulfilled, (state, action) => {
       const newItems = state.cart.items.map(item =>
@@ -106,8 +106,8 @@ const cartSlice = createSlice({
     })
 
     builder.addCase(minusQuantityFetch.pending, (state, action) => {
-      state.loading = true;
-    });
+      state.loading = true
+    })
     builder.addCase(minusQuantityFetch.fulfilled, (state, action) => {
       const newItems = state.cart.items.map(item =>
         item.id.id !== action.payload.id.id ? item : action.payload

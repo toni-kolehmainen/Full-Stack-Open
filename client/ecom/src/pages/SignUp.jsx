@@ -9,7 +9,7 @@ import { Link, useNavigate } from 'react-router-dom'
 function Steps({ step, handler, value, type, placeholder }) {
   const handleDefault = (event) => { event.preventDefault() }
   const { t } = useTranslation()
-  if (step === "email") {
+  if (step === 'email') {
     return (
       <div className="col-12">
         <input onChange={handler} value={value} type={type} className="form-control" placeholder={placeholder} required />
@@ -18,7 +18,7 @@ function Steps({ step, handler, value, type, placeholder }) {
         </div>
       </div>
     )
-  } else if (step === "password") {
+  } else if (step === 'password') {
     return (
       <div className="col-12">
         <input onCopy={handleDefault} onPaste={handleDefault} onChange={handler} value={value} type={type} className="form-control" placeholder={placeholder} required />
@@ -27,8 +27,6 @@ function Steps({ step, handler, value, type, placeholder }) {
         </div>
       </div>
     )
-  } else {
-
   }
 }
 
@@ -41,37 +39,37 @@ function SignUp({ i18n }) {
 
   const navigate = useNavigate()
 
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [confirm, setConfirm] = useState("")
-  const [step, setStep] = useState("email")
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [confirm, setConfirm] = useState('')
+  const [step, setStep] = useState('email')
 
   const handleEmail = (event) => { setEmail(event.target.value) }
   const handlePassword = (event) => { setPassword(event.target.value) }
   const handleConfirm = (event) => { setConfirm(event.target.value) }
   const handleSteps = (event) => {
     event.preventDefault()
-    if (step === "email") {
-      setStep("password")
+    if (step === 'email') {
+      setStep('password')
     }
   }
 
   const handleBack = (event) => {
     event.preventDefault()
-    if (step === "email") {
-      navigate("/")
+    if (step === 'email') {
+      navigate('/')
     } else {
-      setStep("email")
+      setStep('email')
     }
   }
 
   const handleSubmit = (event) => {
     event.preventDefault()
-    console.log("handleSubmit")
+    console.log('handleSubmit')
     if (password === confirm) {
-      signupPost({ email, password });
+      signupPost({ email, password })
     } else {
-      alert("password and confirm no match")
+      alert('password and confirm no match')
     }
   }
   return (
@@ -86,42 +84,42 @@ function SignUp({ i18n }) {
                 </div>
               </div>
               <div className='text-start'>
-                <h3 className='title'>{t("registerTitle")}</h3>
-                <span className="sub-title">{t("registerSubTitle")}</span>
+                <h3 className='title'>{t('registerTitle')}</h3>
+                <span className="sub-title">{t('registerSubTitle')}</span>
               </div>
-              {step === "email" ?
+              {step === 'email' ?
                 <div className="row pt-3">
-                  <Steps step={step} handler={handleEmail} value={email} type={"email"} placeholder={t("email")} />
+                  <Steps step={step} handler={handleEmail} value={email} type={'email'} placeholder={t('email')} />
                 </div> : null}
-              {step === "password" ?
+              {step === 'password' ?
                 <div className="row pt-3">
-                  <Steps step={step} handler={handlePassword} value={password} type={"password"} placeholder={t("password")} />
+                  <Steps step={step} handler={handlePassword} value={password} type={'password'} placeholder={t('password')} />
                 </div> : null}
-              {step === "password" ?
+              {step === 'password' ?
                 <div className="row pt-3">
-                  <Steps step={step} handler={handleConfirm} value={confirm} type={"password"} placeholder={t("confirm")} />
+                  <Steps step={step} handler={handleConfirm} value={confirm} type={'password'} placeholder={t('confirm')} />
                 </div> : null}
               <div className="row pt-5">
                 <div className="col-12">
-                  {step === "password" ?
+                  {step === 'password' ?
                     <Button className='submit w-100 rounded-4' type="submit">
-                      {t("signup")}
+                      {t('signup')}
                     </Button> :
                     <Button onClick={handleSteps} className='submit w-100 rounded-4' type="button">
-                      {t("continue")}
+                      {t('continue')}
                     </Button>}
                 </div>
               </div>
               <div className="row pt-3">
                 <div className="col-12">
                   <Button className='back w-100 rounded-4' onClick={handleBack} type="button">
-                    {t("cancel")}
+                    {t('cancel')}
                   </Button>
                 </div>
               </div>
               <div className="row pt-5">
                 <div className="col-12">
-                  <span>{t("registerFooter")} <Link to="/signin">{t("registerFooterLink")}</Link></span>
+                  <span>{t('registerFooter')} <Link to="/signin">{t('registerFooterLink')}</Link></span>
                 </div>
               </div>
             </Form>

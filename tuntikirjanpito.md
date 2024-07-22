@@ -15,7 +15,7 @@
 | 19.7. | 7    | Tuotteiden haku serveriltä. Async createslicen, jotta saadaan ostokorin esineet pidettyä ajan tasalla. Bugi korjaus teeman kannssa. |
 | 20.7. | 5    | Ostokorin aloitus. Kokonais hinnan lasku. Animaatioita ja kauppalistan tulostamisen aloitus. |
 | 21.7. | 4    | Käyttöliittymän ostoksien teon näkyminen databasessa. Databasen validointi pähkäilyä. |
-| 20.7. | 0    |  |
+| 22.7. | 2    | Code splitting ja tehokkuuden parannuksia. Lyhyt läpi käynti web host mahdollisuuksista. |
 | 20.7. | 0    |  |
 | 20.7. | 0    |  |
 | 20.7. | 0    |  |

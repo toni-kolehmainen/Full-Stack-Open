@@ -1,17 +1,17 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react'
 
 const useTheme = () => {
-  const getCurrentTheme = () => window.matchMedia("(prefers-color-scheme: dark)").matches;
-  const [theme, setTheme] = useState(getCurrentTheme());
+  const getCurrentTheme = () => window.matchMedia('(prefers-color-scheme: dark)').matches
+  const [theme, setTheme] = useState(getCurrentTheme())
   useEffect(() => {
-    
+
     const handleWindowTheme = (evt) => {
       setTheme(evt.matches)
     }
-    window.addEventListener("change", handleWindowTheme);
-    return () => window.removeEventListener("change",handleWindowTheme);
+    window.addEventListener('change', handleWindowTheme)
+    return () => window.removeEventListener('change',handleWindowTheme)
   }, [])
-  console.log("theme", theme)
-  return theme;
+  console.log('theme', theme)
+  return theme
 }
 export default useTheme

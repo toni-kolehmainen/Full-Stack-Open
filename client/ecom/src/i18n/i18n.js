@@ -11,8 +11,6 @@ import Swedish from './sv/translation.json'
  *
  */
 i18n
-  // .use(httpBackend)
-  // .use(LanguageDetector)
   .use(initReactI18next).init({
     lng: 'en',
     fallbackLng: ['en', 'fi', 'sv'],

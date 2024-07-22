@@ -8,7 +8,7 @@ export const nodeApi = createApi({
     baseUrl: 'http://localhost:3001',
     prepareHeaders: (headers) => {
       headers.set('Content-Type', 'application/json')
-      return headers;
+      return headers
     }
   }),
   tagTypes: ['Groups'],
@@ -19,7 +19,7 @@ export const nodeApi = createApi({
     getStoreById: builder.mutation({
       query(body) {
         return {
-          url: `getstorebyid`,
+          url: 'getstorebyid',
           method: 'POST',
           body,
         }
@@ -28,7 +28,7 @@ export const nodeApi = createApi({
     signIn: builder.mutation({
       query(body) {
         return {
-          url: `signin`,
+          url: 'signin',
           method: 'POST',
           body,
         }
@@ -38,7 +38,7 @@ export const nodeApi = createApi({
     signUp: builder.mutation({
       query(body) {
         return {
-          url: `signup`,
+          url: 'signup',
           method: 'POST',
           body,
         }
@@ -48,7 +48,7 @@ export const nodeApi = createApi({
     getProducts: builder.mutation({
       query() {
         return {
-          url: `getproductstest`,
+          url: 'getproductstest',
           method: 'GET',
         }
       },
@@ -57,7 +57,7 @@ export const nodeApi = createApi({
     getStores: builder.mutation({
       query(body) {
         return {
-          url: `getstores`,
+          url: 'getstores',
           method: 'POST',
           body,
         }

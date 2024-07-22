@@ -1,7 +1,7 @@
-import { use } from "i18next";
-import { createContext, useEffect, useState } from "react";
+import { use } from 'i18next'
+import { createContext, useEffect, useState } from 'react'
 
-const ThemeContext = createContext();
+const ThemeContext = createContext()
 
 function ThemeProvider(props) {
   const [themeDark, setThemeDark] = useState(false)
@@ -18,17 +18,17 @@ function ThemeProvider(props) {
 
     if (window.localStorage.getItem('theme')) {
       const themeName = window.localStorage.getItem('theme')
-      setThemeDark(themeName === "dark")
+      setThemeDark(themeName === 'dark')
       document.documentElement.setAttribute('data-bs-theme', themeName)
       document.documentElement.setAttribute('data-theme', themeName)
     } else {
-      const globalTheme = window.matchMedia("(prefers-color-scheme: dark)");
+      const globalTheme = window.matchMedia('(prefers-color-scheme: dark)')
       handleChange(globalTheme)
       let themeName = globalTheme ? 'dark' : 'light'
       window.localStorage.setItem('theme', themeName)
 
-      globalTheme.addEventListener("change",handleChange);
-      return () => globalTheme.removeEventListener("change",handleChange);
+      globalTheme.addEventListener('change',handleChange)
+      return () => globalTheme.removeEventListener('change',handleChange)
     }
   }, [])
   const toggleTheme = () => {

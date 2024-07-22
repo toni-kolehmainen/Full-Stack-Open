@@ -1,23 +1,20 @@
-import React, { useCallback } from 'react';
-import ReactPDF, { Page, Text, View, Document, StyleSheet, Rect, Svg, PDFViewer, PDFDownloadLink } from '@react-pdf/renderer';
-import ReactDOM from 'react-dom';
-import debounce from 'lodash.debounce';
+import { Page, Text, View, Document, StyleSheet, PDFDownloadLink } from '@react-pdf/renderer'
 
 const styles = StyleSheet.create({
   page: { padding: 50 },
   tableContainer: {
-    flexDirection: "row",
-    flexWrap: "wrap",
+    flexDirection: 'row',
+    flexWrap: 'wrap',
     marginTop: 24,
   },
   container: {
-    flexDirection: "row",
-    color: "#000",
+    flexDirection: 'row',
+    color: '#000',
     fontSize: '10',
-    alignItems: "center",
+    alignItems: 'center',
     height: 20,
-    textAlign: "center",
-    fontStyle: "bold",
+    textAlign: 'center',
+    fontStyle: 'bold',
     flexGrow: 1
   },
   title: {
@@ -37,32 +34,32 @@ const styles = StyleSheet.create({
   },
   description: {
     textAlign: 'center',
-    width: "50%",
+    width: '50%',
     borderRightWidth: 1
   },
   box: {
     width: '8%',
-    alignItems: "center",
-    alignSelf: "center",
+    alignItems: 'center',
+    alignSelf: 'center',
   },
   rect: {
-    alignItems: "center",
-    alignSelf: "center",
+    alignItems: 'center',
+    alignSelf: 'center',
     borderWidth: 1,
-    borderColor: "#000",
+    borderColor: '#000',
     borderRadius: 3,
-    width: "60%",
-    height: "60%"
+    width: '60%',
+    height: '60%'
   },
   amount: {
-    width: "10%",
+    width: '10%',
     borderRightWidth: 1
   },
   price: {
     fontWeight: 600,
     width: '50%',
   }
-});
+})
 
 const Doc = (props) => (
   <Document>
@@ -83,7 +80,6 @@ const Doc = (props) => (
 )
 
 const DocItems = (props) => {
-
   return (
     <View>
       {
@@ -103,13 +99,6 @@ const DocItems = (props) => {
 }
 
 function RendererPdf(props) {
-
-  // const handleClose = () => {
-  //   setTimeout(() => {
-  //     props.setCreatePdf(false)
-  //   }, 1000)
-  // }
-
   return (
     <PDFDownloadLink document={<Doc data={props.data} />} fileName="Ostoslista.pdf">
       {({ blob, url, loading, error }) =>

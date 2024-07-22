@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useState } from 'react'
 
-const useNavigation = ({views}) => {
-  
-  const [view, setView] = useState();
-  
-  
+const useNavigation = ({ views }) => {
 
-  return view;
+  const [view, setView] = useState()
+
+
+
+  return view
 }
 export default useNavigation

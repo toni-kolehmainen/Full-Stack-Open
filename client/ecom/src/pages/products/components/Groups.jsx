@@ -1,11 +1,11 @@
-import { useContext, useEffect, useState } from "react"
-import { Button, Spinner } from "react-bootstrap"
-import { ThemeContext } from "../../../redux/context/ThemeContext";
-import { useGetProductGroupsQuery, useGetProductsBySlugMutation } from "../../../services/api";
-import { Outlet, useParams } from "react-router-dom";
-import useInfinteScroll from "@/hooks/useInfinteScroll";
-import InfiniteScroll from "react-infinite-scroll-component";
-import ProductCard from "./ProductCard";
+import { useContext, useEffect, useState } from 'react'
+import { Button, Spinner } from 'react-bootstrap'
+import { ThemeContext } from '../../../redux/context/ThemeContext'
+import { useGetProductGroupsQuery, useGetProductsBySlugMutation } from '../../../services/api'
+import { Outlet, useParams } from 'react-router-dom'
+import useInfinteScroll from '@/hooks/useInfinteScroll'
+import InfiniteScroll from 'react-infinite-scroll-component'
+import ProductCard from './ProductCard'
 import '../products.css'
 
 export function SlugView() {
@@ -31,7 +31,7 @@ export function SlugView() {
         useWindow={false}
         // scrollableTarget="scrollableDiv"
         className='wrapper'
-        style={{ "display": "grid" }}
+        style={{ 'display': 'grid' }}
         loader={<p>Loading...</p>}
         endMessage={<></>}
       >
@@ -47,15 +47,15 @@ export function SlugView() {
 
 function Children({ obj, linkColor }) {
   if (!('children' in obj)) {
-    return;
+    return
   }
   return (
     obj.children.map(child => (
       <a
         className={`link-${linkColor} link-offset-2 link-underline-opacity-0 link-underline-opacity-75-hover`}
-        href={"tuoteryhmat/" + child.slug}
+        href={'tuoteryhmat/' + child.slug}
         key={child.id}
-        style={{ "display": "block", "fontWeight": "350" }}>
+        style={{ 'display': 'block', 'fontWeight': '350' }}>
         {child.name}
       </a>
     )
@@ -64,7 +64,7 @@ function Children({ obj, linkColor }) {
 }
 
 function Groups() {
-  const { themeDark } = useContext(ThemeContext);
+  const { themeDark } = useContext(ThemeContext)
   const [childPath, setChildPath] = useState(null)
   const [hoverOff, setHoverOff] = useState(false)
 
@@ -86,43 +86,43 @@ function Groups() {
   } = useGetProductGroupsQuery()
 
   // console.log(path)
-  const variant = themeDark ? "dark" : "light"
-  const linkColor = themeDark ? "light" : "dark"
+  const variant = themeDark ? 'dark' : 'light'
+  const linkColor = themeDark ? 'light' : 'dark'
   return (
     <>
       <ul className={`p-0 bg-${variant}`}
         style={{
-          "minWidth": "30vh", "display": "inline-block", "listStyleType": "none", "backgroundColor": "white",
-          "height": "100%", "verticalAlign": "top", "overflowY": "scroll", "overflowX": "hidden"
+          'minWidth': '30vh', 'display': 'inline-block', 'listStyleType': 'none', 'backgroundColor': 'white',
+          'height': '100%', 'verticalAlign': 'top', 'overflowY': 'scroll', 'overflowX': 'hidden'
         }}>
         {!isLoading ?
           path.navigation.map((group, index) =>
-          (<li className="" style={{ "textAlign": "center" }} key={group.id}>
-            <Button
-              onClick={() => groupClicked(index)}
-              onMouseEnter={() => groupHover(index)}
-              variant={variant}
-              style={{ "display": "block", "width": "100%", "borderLeftStyle": (index === childPath && hoverOff) ? "solid" : "none", "borderLeftColor": "#32BF6F", "borderLeftWidth": "4px" }}>
-              {group.name}
-            </Button>
-          </li>)
+            (<li className="" style={{ 'textAlign': 'center' }} key={group.id}>
+              <Button
+                onClick={() => groupClicked(index)}
+                onMouseEnter={() => groupHover(index)}
+                variant={variant}
+                style={{ 'display': 'block', 'width': '100%', 'borderLeftStyle': (index === childPath && hoverOff) ? 'solid' : 'none', 'borderLeftColor': '#32BF6F', 'borderLeftWidth': '4px' }}>
+                {group.name}
+              </Button>
+            </li>)
           ) : <div>Loading</div>}
       </ul>
-      <div className="group" style={{ "display": "flex", "overflowY": "auto", "flexGrow": "1", "padding": "8" }}>
-        <div style={{ "display": "flex", "flex": "1", "alignItems": "flex-start", "position": "relative" }}>
+      <div className="group" style={{ 'display': 'flex', 'overflowY': 'auto', 'flexGrow': '1', 'padding': '8' }}>
+        <div style={{ 'display': 'flex', 'flex': '1', 'alignItems': 'flex-start', 'position': 'relative' }}>
           <div
-            style={{ "display": "block", "columns": "250px", "width": "100%" }}>
+            style={{ 'display': 'block', 'columns': '250px', 'width': '100%' }}>
             {(childPath !== null && !isLoading) ?
               path.navigation[childPath].children.map((child, index) =>
-              (
-                <div className="" style={{ "display": "block", "breakInside": "avoid-column" }} key={child.id}>
-                  <a
-                    className={`link-${linkColor} link-offset-2 link-underline-opacity-0 link-underline-opacity-75-hover`}
-                    href={"tuoteryhmat/" + child.slug} key={child.id}
-                    style={{ "display": "block", "fontWeight": "500" }}>{child.name}</a>
-                  <Children obj={child} linkColor={linkColor} />
-                </div>
-              )
+                (
+                  <div className="" style={{ 'display': 'block', 'breakInside': 'avoid-column' }} key={child.id}>
+                    <a
+                      className={`link-${linkColor} link-offset-2 link-underline-opacity-0 link-underline-opacity-75-hover`}
+                      href={'tuoteryhmat/' + child.slug} key={child.id}
+                      style={{ 'display': 'block', 'fontWeight': '500' }}>{child.name}</a>
+                    <Children obj={child} linkColor={linkColor} />
+                  </div>
+                )
               )
               : null}
           </div>
