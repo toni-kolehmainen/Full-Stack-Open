@@ -8,9 +8,9 @@ function Searchbar() {
   const navigate = useNavigate()
   const [searchText, setSearchText] = useState('')
 
+
   useEffect(() => {
     if (('/tuotteet/tuotehaku'.includes(location.pathname))) {
-      console.log(searchText)
       if (searchText.length === 0) {
         navigate('/tuotteet')
       } else {
@@ -22,9 +22,9 @@ function Searchbar() {
         })
       }
     }
-  }, [])
+  }, [searchText]) // eslint-disable-line react-hooks/exhaustive-deps
 
-  const debouncedSearch = useCallback(debounce(e =>
+  const debouncedSearch = useCallback((e) => debounce(e =>
     setSearchText(e.target.value), 500), []
   )
 
